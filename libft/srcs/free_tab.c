@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_tab.c                                         :+:      :+:    :+:   */
+/*   free_tbl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avacher <avacher@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,18 +12,18 @@
 
 #include "libft.h"
 
-int			free_tab(char ***tab)
+int			free_tbl(char ***tbl)
 {
 	int			i;
 	int			len;
 
 	i = 0;
-	len = tbl_len(*tab);
+	len = tbl_len(*tbl);
 	while (i < len)
 	{
-		free((*tab)[i]);
+		free((*tbl)[i]);
 		i++;
 	}
-	free(*tab);
+	free(*tbl);
 	return (0);
 }

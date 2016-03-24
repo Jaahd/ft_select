@@ -4,5 +4,6 @@
 # include <stdio.h>
 
 #define DEBUG 1
+#define BUFF_SIZE 2048
 
 #endif

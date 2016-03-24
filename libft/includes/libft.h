@@ -101,7 +101,7 @@ char				*srch_begining(const char *str, int c);
 char				*srch_value(const char *str, int c);
 int					duo_pushback(t_duo **lst, char *name, char *value);
 int					duo_del(t_duo **lst);
-int					free_tab(char ***tab);
+int					free_tbl(char ***tbl);
 char				**lst_to_tbl(t_list *lst);
 int					ft_lst_count(t_list *lst);
 int					tbl_len(char **tbl);
@@ -112,5 +112,6 @@ int					ft_hidenp(char *hiden, char *str);
 void				ft_swap(char **s1, char **s2);
 void				int_swap(int *i, int *j);
 int					intcmp(int a, int b);
+int					ft_putchr(int c);
 
 #endif
