@@ -3,7 +3,7 @@ RM =	/bin/rm
 MAKE =	/usr/bin/make
 MKDIR =	/bin/mkdir
 
-NAME = ft_ls
+NAME = ft_select
 
 ROOT =		$(shell /bin/pwd)
 OPATH =		$(ROOT)/objs
@@ -12,18 +12,10 @@ HPATH =		$(ROOT)/includes
 LIBPATH =	$(ROOT)/libft
 LFTHPATH =	$(LIBPATH)/includes
 
-CFLAGS = -g -Wall -Werror -Wextra -I $(HPATH) -I $(LFTHPATH)
-LIBS = -L $(LIBPATH) -lft
+CFLAGS = -g -O3 -Wall -Werror -Wextra -I $(HPATH) -I $(LFTHPATH)
+LIBS = -L $(LIBPATH) -lft -ltermcap
 
-SRC = 	ft_ls.c \
-		ft_ls_getinfo.c \
-		ft_ls_display.c \
-		ft_ls_fileinfo.c \
-		ft_ls_managedir.c \
-		ft_ls_managelst.c \
-		ft_ls_permissions.c \
-		ft_ls_manageoptions.c \
-		ft_ls_displayoptions.c
+SRC = 	ft_select.c \
 
 OFILES = $(patsubst %.c, $(OPATH)/%.o, $(SRC))
 
