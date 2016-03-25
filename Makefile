@@ -16,6 +16,8 @@ CFLAGS = -g -O3 -Wall -Werror -Wextra -I $(HPATH) -I $(LFTHPATH)
 LIBS = -L $(LIBPATH) -lft -ltermcap
 
 SRC = 	ft_select.c \
+		moves.c \
+		actions.c \
 		cduo_pushbk.c \
 
 OFILES = $(patsubst %.c, $(OPATH)/%.o, $(SRC))

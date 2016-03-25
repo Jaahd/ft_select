@@ -18,6 +18,8 @@
 //# define RIGHT_ARROW 4414235
 //# define LEFT_ARROW 4479771
 
+typedef struct			termios t_termios;
+
 typedef struct			s_cduo
 {
 	char				*name;
@@ -29,5 +31,22 @@ typedef struct			s_cduo
 }						t_cduo;
 
 int						cduo_pushback(t_cduo **lst, char *name);
+
+/*
+** moves.c
+*/
+int						down_arrow(int buff, t_cduo **lst_param);
+int						up_arrow(int buff, t_cduo **lst_param);
+
+/*
+** actions.c
+*/
+char					**enter_key(int buff, t_cduo **lst_param);
+int						space_key(int buff, t_cduo **lst_param);
+int						esc_key(int buff, t_cduo **lst_param, t_termios *term);
+int						suppr_key(int buff, t_cduo **lst_param, t_termios *t);
+
+
+int						termcap_reset(struct termios *term);
 
 #endif
