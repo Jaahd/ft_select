@@ -19,6 +19,7 @@
 //# define LEFT_ARROW 4479771
 
 typedef struct			termios t_termios;
+typedef struct			winsize t_winsize;
 
 typedef struct			s_cduo
 {

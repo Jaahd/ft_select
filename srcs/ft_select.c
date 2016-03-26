@@ -1,6 +1,8 @@
 #include <term.h> //pour tgetent
 #include <termios.h> // pour tcgetattr / tcsetattr
 #include <stdlib.h> // pour getenv
+#include <fcntl.h> // pour open
+#include <sys/ioctl.h> // pour ioctl
 #include "ft_select.h"
 #include "libft.h"
 
@@ -188,6 +190,24 @@ int				print_return(char **ret)
 	return (0);
 }
 
+t_winsize		*fct_size()
+{
+	static t_winsize	*win_size = NULL;
+
+	if (win_size == NULL)
+		win_size = (t_winsize *)malloc(sizeof(t_winsize));
+	return (win_size);
+}
+
+int				get_s_win()
+{
+	int				fd;
+
+	fd = open(ttyname(0), O_WRONLY);
+	ioctl(fd, TIOCGWINSZ, fct_size());
+	return (0);
+}
+
 int				main(int ac, char **av)
 {
 	t_termios			term;
@@ -197,6 +217,8 @@ int				main(int ac, char **av)
 
 	lst_param = NULL;
 	ret = NULL;
+	get_s_win();
+	printf("lignes [[%d]]\tcol {{%d}}\n", fct_size()->ws_row, fct_size()->ws_col);
 	if (termcap_init(&term) == -1)
 		manage_error(1, &term);
 	fill_list(&lst_param, ac, av);
