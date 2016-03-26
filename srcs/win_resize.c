@@ -3,10 +3,13 @@
 #include <fcntl.h> // pour open
 #include <sys/ioctl.h> // pour ioctl
 #include "ft_select.h"
+#include "libft.h"
 
 
 t_winsize		*fct_size()
 {
+	if (DEBUG == 1)
+		ft_putendl("fct size");
 	static t_winsize	*win_size = NULL;
 
 	if (win_size == NULL)
@@ -16,6 +19,8 @@ t_winsize		*fct_size()
 
 int				get_s_win()
 {
+	if (DEBUG == 1)
+		ft_putendl("get s win");
 	int				fd;
 
 	fd = open(ttyname(0), O_WRONLY);

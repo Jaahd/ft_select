@@ -104,10 +104,8 @@ int					suppr_key(int buff, t_cduo **lst_param, t_termios *term)
 	tmp->prev = NULL;
 	free(tmp->name);
 	free(tmp);
+	tmp->nb_elt -= 1;
 	if (tmp == NULL)
-	{
 		esc_key(buff, lst_param, term);
-		return (1);
-	}
 	return (0);
 }

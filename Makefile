@@ -19,6 +19,7 @@ SRC = 	ft_select.c \
 		init.c \
 		reset.c \
 		first_steps.c \
+		display.c \
 		moves.c \
 		actions.c \
 		win_resize.c \

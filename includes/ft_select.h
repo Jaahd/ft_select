@@ -27,6 +27,8 @@ typedef struct			s_cduo
 	int					first;
 	int					select;
 	int					cursor;
+	int					nb_elt;
+	int					max_len;
 	struct s_cduo		*prev;
 	struct s_cduo		*next;
 }						t_cduo;
@@ -41,7 +43,7 @@ int						fill_list(t_cduo **lst_param, int ac, char **av);
 char					**fct_read(t_cduo **lst_param, t_termios *term);
 
 /*
-** reset.c
+** init.c
 */
 int						termcap_init(struct termios *term);
 
@@ -49,6 +51,12 @@ int						termcap_init(struct termios *term);
 ** reset.c
 */
 int						termcap_reset(struct termios *term);
+
+/*
+** display.c
+*/
+int						aff_params(t_cduo *lst_param);
+int						print_return(char **ret);
 
 /*
 ** moves.c
@@ -64,12 +72,10 @@ int						space_key(int buff, t_cduo **lst_param);
 int						esc_key(int buff, t_cduo **lst_param, t_termios *term);
 int						suppr_key(int buff, t_cduo **lst_param, t_termios *t);
 
-
-int						termcap_reset(struct termios *term);
-
 /*
 ** win_resize.c
 */
+int						manage_columns();
 t_winsize				*fct_size();
 int						get_s_win();
 

@@ -33,14 +33,19 @@ int				fill_list(t_cduo **lst_param, int ac, char **av)
 	if (DEBUG == 1)
 		ft_putendl("fill list");
 	int					i;
+	int					len;
 
 	i = 1;
+	len = 0;
 	while (i < ac)
 	{
 		cduo_pushback(lst_param, av[i]);
+		if ((*lst_param)->max_len < (len = ft_strlen(av[i])))
+			(*lst_param)->max_len = len < 40 ? len : 40;
 		i++;
 	}
-	return (i);
+	(*lst_param)->nb_elt = ac;
+	return (0);
 }
 
 char 				**fct_read(t_cduo **lst_param, t_termios *term)
