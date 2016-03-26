@@ -2,6 +2,8 @@
 # define FT_SELECT_H
 
 # include <stdio.h>
+# include <sys/ioctl.h>
+# include <termios.h>
 
 # define DEBUG 0
 
@@ -33,13 +35,13 @@ typedef struct			s_cduo
 	struct s_cduo		*next;
 }						t_cduo;
 
-int						cduo_pushback(t_cduo **lst, char *name);
+int						cduo_pushback(char *name);
 
 /*
 ** first_steps.c
 */
 void					clr_screen();
-int						fill_list(t_cduo **lst_param, int ac, char **av);
+int						fill_list(int ac, char **av);
 char					**fct_read(t_cduo **lst_param, t_termios *term);
 
 /*
@@ -75,8 +77,14 @@ int						suppr_key(int buff, t_cduo **lst_param, t_termios *t);
 /*
 ** win_resize.c
 */
-int						manage_columns();
+int						manage_columns(t_cduo *lst_param, int max_len);
 t_winsize				*fct_size();
 int						get_s_win();
+t_cduo					*get_cduo();
+
+/*
+** signal
+*/
+int						manage_signal();
 
 #endif

@@ -1,31 +1,42 @@
 #include <term.h> //pour tgetent
+#include <termios.h>
 #include "ft_select.h"
 #include "libft.h"
 
-int				aff_params(t_cduo *lst_param)
+int				manage_columns(t_cduo *lst_param, int max_len)
 {
 	if (DEBUG == 1)
-		ft_putendl("aff params");
-	int					i;
-	t_cduo				*tmp;
+		ft_putendl("manage columns");
+	t_cduo			*tmp;
+	int				row;
+	int				col;
+	int				i;
+	int				j;
+	int				k;
 
+	row = fct_size()->ws_row;
+	col = fct_size()->ws_col;
 	i = 0;
+	k = 0;
 	tmp = lst_param;
-	if (tmp->nb_elt > fct_size()->ws_row)
-	{
-		manage_columns();
-		return (0);
-	}
 	while ((i += tmp->first) < 2)
 	{
-		if (tmp->select == TRUE)
-			ft_putstr("\033[7m");
-		if (tmp->cursor == TRUE)
-			ft_putstr("\033[4m");
-		tputs(tmp->name, 1, ft_putchr);
-		tputs("\n", 1, ft_putchr);
-		ft_putstr("\033[0m");
-		tmp = tmp->next;
+		j = 0;
+		while(j < row)
+		{
+		tputs(tgoto(tgetstr("cm", NULL), (k * (max_len + 2)), j), 1, ft_putchr);
+			if (tmp->select == TRUE)
+				ft_putstr("\033[7m");
+			if (tmp->cursor == TRUE)
+				ft_putstr("\033[4m");
+			tputs(tmp->name, 1, ft_putchr);
+			ft_putstr("\033[0m");
+			tmp = tmp->next;
+			j++;
+			if (tmp->first == TRUE)
+				break ;
+		}
+		k++;
 	}
 	return (0);
 }
@@ -37,6 +48,8 @@ int				print_return(char **ret)
 	int					i;
 
 	i = 0;
+
+	ft_putendl_fd("((blabla))\n", 0);
 	while (ret[i] != NULL)
 	{
 		ft_putstr_fd(ret[i], 0);

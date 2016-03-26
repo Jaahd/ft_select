@@ -28,24 +28,29 @@ void			clr_screen()
 	tputs(str, 1, ft_putchr);
 }
 
-int				fill_list(t_cduo **lst_param, int ac, char **av)
+int				fill_list(int ac, char **av)
 {
 	if (DEBUG == 1)
 		ft_putendl("fill list");
 	int					i;
 	int					len;
+	int					max_len;
 
 	i = 1;
 	len = 0;
+	max_len = 0;
 	while (i < ac)
 	{
-		cduo_pushback(lst_param, av[i]);
-		if ((*lst_param)->max_len < (len = ft_strlen(av[i])))
-			(*lst_param)->max_len = len < 40 ? len : 40;
+		cduo_pushback(av[i]);
+		len = ft_strlen(av[i]);
+		if (len > 40)
+			max_len = 40;
+		else if (max_len < len)
+			max_len = len;
 		i++;
 	}
-	(*lst_param)->nb_elt = ac;
-	return (0);
+	get_cduo()->nb_elt = ac;
+	return (max_len);
 }
 
 char 				**fct_read(t_cduo **lst_param, t_termios *term)

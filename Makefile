@@ -24,6 +24,7 @@ SRC = 	ft_select.c \
 		actions.c \
 		win_resize.c \
 		cduo_pushbk.c \
+		signal.c \
 
 OFILES = $(patsubst %.c, $(OPATH)/%.o, $(SRC))
 
@@ -66,6 +67,7 @@ norm: all
 # $@ = rule's name
 # $^ = all the rule dependecies
 # $< = only the first dependence
+
 
 # Color for c
 #   reset	"\033[0m"

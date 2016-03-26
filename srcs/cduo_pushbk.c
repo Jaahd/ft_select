@@ -13,45 +13,41 @@
 #include "ft_select.h"
 #include "libft.h"
 
-static t_cduo		*cduo_new(char *name)
+static void			*cduo_new(char *name)
 {
 	if (DEBUG == 1)
 		ft_putendl("cduo new");
-	t_cduo			*new;
 
-	if ((new = (t_cduo *)malloc(sizeof(t_cduo))) == NULL)
-		return (NULL);
-	new->name = NULL;
-	new->first = FALSE;
-	new->select = FALSE;
-	new->cursor = FALSE;
+	get_cduo()->name = NULL;
+	get_cduo()->first = FALSE;
+	get_cduo()->select = FALSE;
+	get_cduo()->cursor = FALSE;
 	if (name == NULL)
 		return (NULL);
-	new->name = ft_strdup(name);
-	return (new);
+	get_cduo()->name = ft_strdup(name);
 }
 
-int					cduo_pushback(t_cduo **lst, char *name)
+int					cduo_pushback(char *name)
 {
 	if (DEBUG == 1)
 		ft_putendl("cduo pushbk");
 	t_cduo			*tmp;
 
-	tmp = *lst;
+	tmp = get_cduo();
 	if (tmp == NULL)
 	{
-		*lst = cduo_new(name);
-		(*lst)->first = TRUE;
-		(*lst)->cursor = TRUE;
-		(*lst)->next = *lst;
-		(*lst)->prev = *lst;
+		cduo_new(name);
+		get_cduo()->first = TRUE;
+		get_cduo()->cursor = TRUE;
+		get_cduo()->next = get_cduo();
+		get_cduo()->prev = get_cduo();
 		return (0);
 	}
 	while (tmp->next->first != TRUE)
 		tmp = tmp->next;
 	tmp->next = cduo_new(name);
 	tmp->next->prev = tmp;
-	tmp->next->next = *lst;
-	(*lst)->prev = tmp->next;
+	tmp->next->next = get_cduo();
+	(get_cduo())->prev = tmp->next;
 	return (0);
 }

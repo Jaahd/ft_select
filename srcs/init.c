@@ -15,7 +15,7 @@ static int		enable_keyboard(void)
 	tputs(str, 1, ft_putchr);
 	return (0);
 }
-
+/*
 static int		hide_cursor(void)
 {
 	char	*str;
@@ -25,7 +25,7 @@ static int		hide_cursor(void)
 	tputs(str, 1, ft_putchr);
 	return (0);
 }
-
+*/
 int				termcap_init(struct termios *term)
 {
 	if (DEBUG == 1)
@@ -43,7 +43,7 @@ int				termcap_init(struct termios *term)
 	term->c_cc[VTIME] = 0;
 	if (tcsetattr(0, TCSADRAIN, term) == -1)
 		return (-1);
-	hide_cursor();
+//	hide_cursor();
 	enable_keyboard();
 	return (0);
 }

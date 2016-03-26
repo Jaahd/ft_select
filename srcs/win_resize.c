@@ -1,3 +1,5 @@
+#include <term.h> // pour tputs
+#include <termios.h> // pour tgetstr
 #include <stdlib.h>
 #include <unistd.h> // pour ttyname
 #include <fcntl.h> // pour open
@@ -5,10 +7,26 @@
 #include "ft_select.h"
 #include "libft.h"
 
-int				manage_columns()
+t_cduo			*get_cduo()
 {
+	if (DEBUG == 1)
+		ft_putendl("get_cduo");
+	static t_cduo	*lst_param = NULL;
 
-	return (0);
+	if (lst_param == NULL)
+		lst_param = (t_cduo *)malloc(sizeof(t_cduo));
+	return (lst_param);
+}
+
+t_termios		*get_term()
+{
+	if (DEBUG == 1)
+		ft_putendl("get_term");
+	static t_termios	*term = NULL;
+
+	if (term == NULL)
+		term = (t_termios *)malloc(sizeof(t_termios));
+	return (term);
 }
 
 t_winsize		*fct_size()
@@ -30,5 +48,5 @@ int				get_s_win()
 
 	fd = open(ttyname(0), O_WRONLY);
 	ioctl(fd, TIOCGWINSZ, fct_size());
-	return (0);
+	return (fd);
 }
