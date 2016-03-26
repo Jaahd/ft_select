@@ -18,6 +18,7 @@ LIBS = -L $(LIBPATH) -lft -ltermcap
 SRC = 	ft_select.c \
 		moves.c \
 		actions.c \
+		win_resize.c \
 		cduo_pushbk.c \
 
 OFILES = $(patsubst %.c, $(OPATH)/%.o, $(SRC))

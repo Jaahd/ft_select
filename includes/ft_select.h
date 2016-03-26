@@ -50,4 +50,10 @@ int						suppr_key(int buff, t_cduo **lst_param, t_termios *t);
 
 int						termcap_reset(struct termios *term);
 
+/*
+** win_resize.c
+*/
+t_winsize				*fct_size();
+int						get_s_win();
+
 #endif

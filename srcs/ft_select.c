@@ -1,8 +1,6 @@
 #include <term.h> //pour tgetent
 #include <termios.h> // pour tcgetattr / tcsetattr
 #include <stdlib.h> // pour getenv
-#include <fcntl.h> // pour open
-#include <sys/ioctl.h> // pour ioctl
 #include "ft_select.h"
 #include "libft.h"
 
@@ -147,10 +145,8 @@ char				**get_input(int buff, t_cduo **lst_param, t_termios *term)
 {
 	if (DEBUG == 1)
 		ft_putendl("fct read");
-	char				*str;
 	char				**ret;
 
-	str = tgetstr("cl", NULL);
 	down_arrow(buff, lst_param);
 	up_arrow(buff, lst_param);
 	space_key(buff, lst_param);
@@ -187,24 +183,6 @@ int				print_return(char **ret)
 		i++;
 	}
 	ft_putchar_fd('\n', 0);
-	return (0);
-}
-
-t_winsize		*fct_size()
-{
-	static t_winsize	*win_size = NULL;
-
-	if (win_size == NULL)
-		win_size = (t_winsize *)malloc(sizeof(t_winsize));
-	return (win_size);
-}
-
-int				get_s_win()
-{
-	int				fd;
-
-	fd = open(ttyname(0), O_WRONLY);
-	ioctl(fd, TIOCGWINSZ, fct_size());
 	return (0);
 }
 
