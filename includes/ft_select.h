@@ -34,6 +34,23 @@ typedef struct			s_cduo
 int						cduo_pushback(t_cduo **lst, char *name);
 
 /*
+** first_steps.c
+*/
+void					clr_screen();
+int						fill_list(t_cduo **lst_param, int ac, char **av);
+char					**fct_read(t_cduo **lst_param, t_termios *term);
+
+/*
+** reset.c
+*/
+int						termcap_init(struct termios *term);
+
+/*
+** reset.c
+*/
+int						termcap_reset(struct termios *term);
+
+/*
 ** moves.c
 */
 int						down_arrow(int buff, t_cduo **lst_param);
