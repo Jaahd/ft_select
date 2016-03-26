@@ -5,6 +5,11 @@
 #include "ft_select.h"
 #include "libft.h"
 
+int				manage_columns()
+{
+
+	return (0);
+}
 
 t_winsize		*fct_size()
 {

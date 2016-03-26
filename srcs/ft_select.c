@@ -19,7 +19,6 @@ int				main(int ac, char **av)
 	t_termios			term;
 	t_cduo				*lst_param;
 	char				**ret;
-	int					i;
 
 	lst_param = NULL;
 	ret = NULL;
@@ -28,7 +27,6 @@ int				main(int ac, char **av)
 	if (termcap_init(&term) == -1)
 		manage_error(1, &term);
 	fill_list(&lst_param, ac, av);
-	i = 0;
 	while (1)
 	{
 		clr_screen();
