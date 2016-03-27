@@ -54,11 +54,15 @@ char					**fct_read();
 /*
 ** init.c
 */
+int						enable_keyboard(void);
+int						hide_cursor(void);
 int						termcap_init();
 
 /*
 ** reset.c
 */
+int						disable_keyboard(void);
+int						display_cursor(void);
 void					termcap_reset();
 
 /*
@@ -93,6 +97,8 @@ t_termios				*get_term();
 ** signal
 */
 void					manage_signal();
+void					sig_interrupt(int sig);
+void					sig_continue(int sig);
 void					sig_exit_pgm(int sig);
 
 #endif

@@ -5,7 +5,7 @@
 #include "ft_select.h"
 #include "libft.h"
 
-static int		enable_keyboard(void)
+int				enable_keyboard(void)
 {
 	if (DEBUG == 1)
 		ft_putendl("enable_keyboard");
@@ -19,7 +19,7 @@ static int		enable_keyboard(void)
 	return (0);
 }
 
-static int		hide_cursor(void)
+int				hide_cursor(void)
 {
 	if (DEBUG == 1)
 		ft_putendl("hide_cursor");
