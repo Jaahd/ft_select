@@ -26,7 +26,7 @@ void			free_lst_param()
 	if (get_stuff()->lst_param == NULL)
 		return ;
 	tmp = get_stuff()->lst_param;
-	while (tmp)
+	while (tmp != NULL && get_stuff()->nb_elt > 0)
 	{
 		tmp->next->prev = tmp->prev;
 		tmp->prev->next = tmp->next;
@@ -45,7 +45,6 @@ int				main(int ac, char **av)
 
 	lst_param = NULL;
 	ret = NULL;
-	//signal(SIGINT, sig_exit_pgm);
 	if (termcap_init() == -1)
 		manage_error(1);
 	get_stuff()->max_len = fill_list(&lst_param, ac, av);

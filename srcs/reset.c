@@ -34,12 +34,13 @@ void			termcap_reset()
 {
 	if (DEBUG == 1)
 		ft_putendl("termcap_reset");
-	tcgetattr(0, get_term());
-	get_term()->c_lflag |= (ICANON | ECHO);
-	tcsetattr(0, TCSANOW, get_term());
-	close(get_stuff()->fd);
+	clr_screen();
 	display_cursor();
 	disable_keyboard();
+	tcgetattr(0, get_term());
+	get_term()->c_lflag |= (ICANON | ECHO);
+	tcsetattr(0, 0, get_term());
 	free_lst_param();
+	close(get_stuff()->fd);
 	exit(EXIT_SUCCESS);
 }

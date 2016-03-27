@@ -37,7 +37,7 @@ int				termcap_init()
 		ft_putendl("termcap_init");
 	char				*name_term;
 
-//	manage_signal();
+	manage_signal();
 	if ((get_stuff()->fd = open(ttyname(0), O_WRONLY)) == -1)
 		return (-1);
 	if ((name_term = getenv("TERM")) == NULL)

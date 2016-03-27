@@ -45,6 +45,7 @@ int 			fill_list(t_cduo **lst_param, int ac, char **av)
 
 	i = 1;
 	len = 0;
+	max_len = 0;
 	while (i < ac)
 	{
 		cduo_pushback(lst_param, av[i]);
@@ -55,6 +56,7 @@ int 			fill_list(t_cduo **lst_param, int ac, char **av)
 			max_len = len;
 		i++;
 	}
+	get_stuff()->nb_elt = i - 1;
 	get_stuff()->lst_param = *lst_param;
 	return (max_len);
 }
