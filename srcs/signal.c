@@ -21,8 +21,8 @@ int				manage_signal()
 {
 	signal(SIGWINCH, sig_winsize);
 	signal(SIGQUIT, sig_ctrl_d);
-	signal(SIGTSTP, sig_ctrl_z);
-	signal(SIGCONT, sig_fg);
+//	signal(SIGTSTP, sig_ctrl_z);
+//	signal(SIGCONT, sig_fg);
 	signal(SIGINT, sig_ctrl_c);
 	return (0);
 }

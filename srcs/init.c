@@ -26,7 +26,7 @@ static int		hide_cursor(void)
 	return (0);
 }
 */
-int				termcap_init(struct termios *term)
+int				termcap_init()
 {
 	if (DEBUG == 1)
 		ft_putendl("termcap_init");
@@ -36,12 +36,12 @@ int				termcap_init(struct termios *term)
 		return (-1);
 	if (tgetent(NULL, name_term) == -1)
 		return (-1);
-	if (tcgetattr(0, term) == -1)
+	if (tcgetattr(0, get_term()) == -1)
 		return (-1);
-	term->c_lflag &= ~(ICANON | ECHO); // mode canonique
-	term->c_cc[VMIN] = 1;
-	term->c_cc[VTIME] = 0;
-	if (tcsetattr(0, TCSADRAIN, term) == -1)
+	get_term()->c_lflag &= ~(ICANON | ECHO); // mode canonique
+	get_term()->c_cc[VMIN] = 1;
+	get_term()->c_cc[VTIME] = 0;
+	if (tcsetattr(0, TCSADRAIN, get_term()) == -1)
 		return (-1);
 //	hide_cursor();
 	enable_keyboard();

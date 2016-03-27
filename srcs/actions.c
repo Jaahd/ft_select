@@ -66,7 +66,7 @@ int					space_key(int buff, t_cduo **lst_param)
 	return (0);
 }
 
-int					esc_key(int buff, t_cduo **lst_param, t_termios *term)
+int					esc_key(int buff, t_cduo **lst_param)
 {
 	t_cduo				*tmp;
 
@@ -83,12 +83,12 @@ int					esc_key(int buff, t_cduo **lst_param, t_termios *term)
 		free(tmp);
 		tmp = tmp->next;
 	}
-	termcap_reset(term);
+	termcap_reset();
 	exit(1);
 	return (0);
 }
 
-int					suppr_key(int buff, t_cduo **lst_param, t_termios *term)
+int					suppr_key(int buff, t_cduo **lst_param)
 {
 	t_cduo				*tmp;
 
@@ -106,6 +106,6 @@ int					suppr_key(int buff, t_cduo **lst_param, t_termios *term)
 	free(tmp);
 	tmp->nb_elt -= 1;
 	if (tmp == NULL)
-		esc_key(buff, lst_param, term);
+		esc_key(buff, lst_param);
 	return (0);
 }

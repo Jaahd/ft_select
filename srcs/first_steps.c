@@ -3,7 +3,7 @@
 #include "ft_select.h"
 #include "libft.h"
 
-static char			**get_input(int buff, t_cduo **lst_param, t_termios *term)
+static char			**get_input(int buff, t_cduo **lst_param)
 {
 	if (DEBUG == 1)
 		ft_putendl("fct read");
@@ -12,8 +12,8 @@ static char			**get_input(int buff, t_cduo **lst_param, t_termios *term)
 	down_arrow(buff, lst_param);
 	up_arrow(buff, lst_param);
 	space_key(buff, lst_param);
-	suppr_key(buff, lst_param, term);
-	esc_key(buff, lst_param, term);
+	suppr_key(buff, lst_param);
+	esc_key(buff, lst_param);
 	ret = enter_key(buff, lst_param);
 	return (ret);
 }
@@ -28,7 +28,7 @@ void			clr_screen()
 	tputs(str, 1, ft_putchr);
 }
 
-int				fill_list(int ac, char **av)
+int 			fill_list(t_cduo **lst_param, int ac, char **av)
 {
 	if (DEBUG == 1)
 		ft_putendl("fill list");
@@ -38,10 +38,9 @@ int				fill_list(int ac, char **av)
 
 	i = 1;
 	len = 0;
-	max_len = 0;
 	while (i < ac)
 	{
-		cduo_pushback(av[i]);
+		cduo_pushback(lst_param, av[i]);
 		len = ft_strlen(av[i]);
 		if (len > 40)
 			max_len = 40;
@@ -49,11 +48,11 @@ int				fill_list(int ac, char **av)
 			max_len = len;
 		i++;
 	}
-	get_cduo()->nb_elt = ac;
+//	get_cduo() = lst_param;
 	return (max_len);
 }
 
-char 				**fct_read(t_cduo **lst_param, t_termios *term)
+char 				**fct_read(t_cduo **lst_param)
 {
 	if (DEBUG == 1)
 		ft_putendl("fct read");
@@ -64,6 +63,6 @@ char 				**fct_read(t_cduo **lst_param, t_termios *term)
 	ret = NULL;
 	if (read(0, &buff, 4) == -1)
 		return (NULL);//
-	ret = get_input(buff, lst_param, term);
+	ret = get_input(buff, lst_param);
 	return (ret);
 }

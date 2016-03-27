@@ -6,18 +6,16 @@
 #include <sys/ioctl.h> // pour ioctl
 #include "ft_select.h"
 #include "libft.h"
-
+/*
 t_cduo			*get_cduo()
 {
 	if (DEBUG == 1)
 		ft_putendl("get_cduo");
 	static t_cduo	*lst_param = NULL;
 
-	if (lst_param == NULL)
-		lst_param = (t_cduo *)malloc(sizeof(t_cduo));
 	return (lst_param);
 }
-
+*/
 t_termios		*get_term()
 {
 	if (DEBUG == 1)

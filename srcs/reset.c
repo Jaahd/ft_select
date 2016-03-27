@@ -6,6 +6,8 @@
 
 static int		disable_keyboard(void)
 {
+	if (DEBUG == 1)
+		ft_putendl("disable_keyboard");
 	char	*str;
 
 	if (tgetstr("ks", NULL) == NULL)
@@ -18,6 +20,8 @@ static int		disable_keyboard(void)
 
 static int		display_cursor(void)
 {
+	if (DEBUG == 1)
+		ft_putendl("display_cursor");
 	char	*str;
 
 	if ((str = tgetstr("ve", NULL)) == NULL)
@@ -26,14 +30,14 @@ static int		display_cursor(void)
 	return (0);
 }
 
-int				termcap_reset(struct termios *term)
+int				termcap_reset()
 {
 	if (DEBUG == 1)
 		ft_putendl("termcap_reset");
-	if (tcgetattr(0, term) == -1)
+	if (tcgetattr(0, get_term()) == -1)
 		return (-1);
-	term->c_lflag = (ICANON | ECHO);
-	if (tcsetattr(0, TCSANOW, term) == -1)
+	get_term()->c_lflag = (ICANON | ECHO);
+	if (tcsetattr(0, TCSANOW, get_term()) == -1)
 		return (-1);
 	display_cursor();
 	disable_keyboard();
