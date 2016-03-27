@@ -5,7 +5,7 @@
 # include <sys/ioctl.h>
 # include <termios.h>
 
-# define DEBUG 1
+# define DEBUG 0
 
 # define BUFF_SIZE 2048
 # define TRUE 1
@@ -70,16 +70,16 @@ int						print_return(char **ret);
 /*
 ** moves.c
 */
-int						down_arrow(int buff);
-int						up_arrow(int buff);
+int						down_arrow();
+int						up_arrow();
 
 /*
 ** actions.c
 */
-char					**enter_key(int buff);
-int						space_key(int buff);
-int						esc_key(int buff);
-int						suppr_key(int buff);
+char					**enter_key();
+int						space_key();
+int						esc_key();
+int						suppr_key();
 
 /*
 ** manage_struct.c

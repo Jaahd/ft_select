@@ -23,6 +23,8 @@ void			free_lst_param()
 		ft_putendl("free_lst_param");
 	t_cduo				*tmp;
 
+	if (get_stuff()->lst_param == NULL)
+		return ;
 	tmp = get_stuff()->lst_param;
 	while (tmp)
 	{
@@ -49,7 +51,7 @@ int				main(int ac, char **av)
 	get_stuff()->max_len = fill_list(&lst_param, ac, av);
 	while (1)
 	{
-//		clr_screen();
+		clr_screen();
 		manage_columns();
 		if ((ret = fct_read()) != NULL)
 			break ;

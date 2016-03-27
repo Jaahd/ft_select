@@ -6,15 +6,22 @@
 static char			**get_input(int buff)
 {
 	if (DEBUG == 1)
-		ft_putendl("fct read");
+		ft_putendl("get_input");
 	char				**ret;
 
-	down_arrow(buff);
-	up_arrow(buff);
-	space_key(buff);
-	suppr_key(buff);
-	esc_key(buff);
-	ret = enter_key(buff);
+	ret = NULL;
+	if (buff == DOWN_ARROW)
+		down_arrow();
+	if (buff == UP_ARROW)
+		up_arrow();
+	if (buff == SPACE)
+		space_key();
+	if (buff == DELETE || buff == BACKSPACE)
+		suppr_key();
+	if (buff == ESCAPE)
+		esc_key();
+	if (buff  == RETURN)
+		ret = enter_key(buff);
 	return (ret);
 }
 

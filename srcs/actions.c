@@ -3,6 +3,8 @@
 
 static char			**enter_key_bis(char **ret)
 {
+	if (DEBUG == 1)
+		ft_putendl("enter_key_bis");
 	int					j;
 	t_cduo				*tmp;
 
@@ -28,8 +30,10 @@ static char			**enter_key_bis(char **ret)
 	return (ret);
 }
 
-char				**enter_key(int buff)
+char				**enter_key()
 {
+	if (DEBUG == 1)
+		ft_putendl("enter_key");
 	char				**ret;
 	t_cduo				*tmp;
 	int					i;
@@ -37,8 +41,6 @@ char				**enter_key(int buff)
 	tmp = get_stuff()->lst_param;
 	i = tmp->select;
 	ret = NULL;
-	if (buff != RETURN)
-		return (NULL);
 	while (tmp->next->first != TRUE)
 	{
 		if (tmp->next->select == TRUE)
@@ -51,13 +53,13 @@ char				**enter_key(int buff)
 	return (ret);
 }
 
-int					space_key(int buff)
+int					space_key()
 {
+	if (DEBUG == 1)
+		ft_putendl("space_key");
 	t_cduo				*tmp;
 
 	tmp = get_stuff()->lst_param;
-	if (buff != SPACE)
-		return (-1);
 	while (tmp->cursor == FALSE)
 		tmp = tmp->next;
 	tmp->select = tmp->select == TRUE ? FALSE : TRUE;
@@ -66,23 +68,22 @@ int					space_key(int buff)
 	return (0);
 }
 
-int					esc_key(int buff)
+int					esc_key()
 {
-	t_cduo				*tmp;
-
-	tmp = get_stuff()->lst_param;
-	if (buff != ESCAPE || (tmp == NULL && buff != DELETE && buff != BACKSPACE))
-		return (-1);
+	if (DEBUG == 1)
+		ft_putendl("esc_key");
 	termcap_reset();
 	return (0);
 }
 
-int					suppr_key(int buff)
+int					suppr_key()
 {
+	if (DEBUG == 1)
+		ft_putendl("suppr_key");
 	t_cduo				*tmp;
 
-	if (buff != DELETE && buff != BACKSPACE)
-		return (-1);
+	if (get_stuff()->nb_elt == 1)
+		exit(EXIT_SUCCESS);
 	tmp = get_stuff()->lst_param;
 	while (tmp->cursor == FALSE)
 		tmp = tmp->next;
@@ -98,8 +99,9 @@ int					suppr_key(int buff)
 	tmp->prev = NULL;
 	free(tmp->name);
 	free(tmp);
+	tmp = NULL;
 	get_stuff()->nb_elt -= 1;
-	if (get_stuff()->lst_param == NULL)
-		esc_key(buff);
+	if (get_stuff()->nb_elt == 0)
+		esc_key();
 	return (0);
 }
