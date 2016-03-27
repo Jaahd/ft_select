@@ -22,7 +22,7 @@ SRC = 	ft_select.c \
 		display.c \
 		moves.c \
 		actions.c \
-		win_resize.c \
+		manage_struct.c \
 		cduo_pushbk.c \
 		signal.c \
 

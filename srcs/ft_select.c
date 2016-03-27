@@ -5,6 +5,8 @@
 #include "ft_select.h"
 #include "libft.h"
 
+#include <signal.h>
+
 int				manage_error(int i)
 {
 	if (DEBUG == 1)
@@ -15,28 +17,43 @@ int				manage_error(int i)
 	return (-1);
 }
 
+void			free_lst_param()
+{
+	if (DEBUG == 1)
+		ft_putendl("free_lst_param");
+	t_cduo				*tmp;
+
+	tmp = get_stuff()->lst_param;
+	while (tmp)
+	{
+		tmp->next->prev = tmp->prev;
+		tmp->prev->next = tmp->next;
+		tmp->next = NULL;
+		tmp->prev = NULL;
+		free(tmp->name);
+		free(tmp);
+		tmp = tmp->next;
+	}
+}
+
 int				main(int ac, char **av)
 {
 	t_cduo				*lst_param;
 	char				**ret;
-	int					max_len;
-	int					fd;
 
 	lst_param = NULL;
 	ret = NULL;
-	manage_signal();
-	fd = get_s_win();
+	//signal(SIGINT, sig_exit_pgm);
 	if (termcap_init() == -1)
 		manage_error(1);
-	max_len = fill_list(&lst_param, ac, av);
+	get_stuff()->max_len = fill_list(&lst_param, ac, av);
 	while (1)
 	{
-		clr_screen();
-		manage_columns(lst_param, max_len);
-		if ((ret = fct_read(&lst_param)) != NULL)
+//		clr_screen();
+		manage_columns();
+		if ((ret = fct_read()) != NULL)
 			break ;
 	}
-	close(fd);
 	if (ret != NULL)
 		print_return(ret);
 	termcap_reset();

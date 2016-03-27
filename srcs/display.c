@@ -3,28 +3,26 @@
 #include "ft_select.h"
 #include "libft.h"
 
-int				manage_columns(t_cduo *lst_param, int max_len)
+int				manage_columns()
 {
 	if (DEBUG == 1)
 		ft_putendl("manage columns");
 	t_cduo			*tmp;
-	int				row;
-	int				col;
+//	int				col;
 	int				i;
 	int				j;
 	int				k;
 
-	row = fct_size()->ws_row;
-	col = fct_size()->ws_col;
+//	col = fct_size()->ws_col;
 	i = 0;
 	k = 0;
-	tmp = lst_param;
+	tmp = get_stuff()->lst_param;
 	while ((i += tmp->first) < 2)
 	{
 		j = 0;
-		while(j < row)
+		while(j < fct_size()->ws_row)
 		{
-		tputs(tgoto(tgetstr("cm", NULL), (k * (max_len + 2)), j), 1, ft_putchr);
+			tputs(tgoto(tgetstr("cm", NULL), (k * (get_stuff()->max_len + 2)), j), 1, ft_putchr);
 			if (tmp->select == TRUE)
 				ft_putstr("\033[7m");
 			if (tmp->cursor == TRUE)

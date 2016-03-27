@@ -2,20 +2,21 @@
 #include <termios.h> // pour tgetstr
 #include <stdlib.h>
 #include <unistd.h> // pour ttyname
-#include <fcntl.h> // pour open
 #include <sys/ioctl.h> // pour ioctl
 #include "ft_select.h"
 #include "libft.h"
-/*
-t_cduo			*get_cduo()
+
+t_glst			*get_stuff()
 {
 	if (DEBUG == 1)
-		ft_putendl("get_cduo");
-	static t_cduo	*lst_param = NULL;
+		ft_putendl("get_stuff");
+	static t_glst	*stuff = NULL;
 
-	return (lst_param);
+	if (stuff == NULL)
+		stuff = (t_glst *)malloc(sizeof(t_glst));
+	return (stuff);
 }
-*/
+
 t_termios		*get_term()
 {
 	if (DEBUG == 1)
@@ -42,9 +43,7 @@ int				get_s_win()
 {
 	if (DEBUG == 1)
 		ft_putendl("get s win");
-	int				fd;
 
-	fd = open(ttyname(0), O_WRONLY);
-	ioctl(fd, TIOCGWINSZ, fct_size());
-	return (fd);
+	ioctl(get_stuff()->fd, TIOCGWINSZ, fct_size());
+	return (0);
 }

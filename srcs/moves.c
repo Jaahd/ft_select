@@ -1,10 +1,10 @@
 #include "ft_select.h"
 
-int				down_arrow(int buff, t_cduo **lst_param)
+int				down_arrow(int buff)
 {
 	t_cduo				*tmp;
 
-	tmp = *lst_param;
+	tmp = get_stuff()->lst_param;
 	if (buff == DOWN_ARROW)
 	{
 		while (tmp->cursor == FALSE)
@@ -15,11 +15,11 @@ int				down_arrow(int buff, t_cduo **lst_param)
 	return (0);
 }
 
-int				up_arrow(int buff, t_cduo **lst_param)
+int				up_arrow(int buff)
 {
 	t_cduo				*tmp;
 
-	tmp = *lst_param;
+	tmp = get_stuff()->lst_param;
 	if (buff == UP_ARROW)
 	{
 		while (tmp->cursor == FALSE)

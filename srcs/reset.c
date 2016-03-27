@@ -1,6 +1,6 @@
 #include <term.h> //pour tgetent
 #include <termios.h> // pour tcgetattr / tcsetattr
-#include <stdlib.h> // pour getenv
+#include <stdlib.h> // pour getenv / exit
 #include "ft_select.h"
 #include "libft.h"
 
@@ -30,16 +30,16 @@ static int		display_cursor(void)
 	return (0);
 }
 
-int				termcap_reset()
+void			termcap_reset()
 {
 	if (DEBUG == 1)
 		ft_putendl("termcap_reset");
-	if (tcgetattr(0, get_term()) == -1)
-		return (-1);
-	get_term()->c_lflag = (ICANON | ECHO);
-	if (tcsetattr(0, TCSANOW, get_term()) == -1)
-		return (-1);
+	tcgetattr(0, get_term());
+	get_term()->c_lflag |= (ICANON | ECHO);
+	tcsetattr(0, TCSANOW, get_term());
+	close(get_stuff()->fd);
 	display_cursor();
 	disable_keyboard();
-	return (0);
+	free_lst_param();
+	exit(EXIT_SUCCESS);
 }
