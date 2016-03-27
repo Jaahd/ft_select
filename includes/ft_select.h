@@ -39,6 +39,7 @@ typedef struct			s_glst
 	int					fd;
 	int					max_len;
 	int					nb_elt;
+	int					col_size_max;
 }						t_glst;
 
 int						cduo_pushback(t_cduo **lst_param, char *name);

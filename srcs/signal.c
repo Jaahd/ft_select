@@ -49,7 +49,8 @@ void			sig_continue(int sig)
 	tcsetattr(0, TCSADRAIN, get_term());
 	hide_cursor();
 	enable_keyboard();
-//	get_s_win();
+	clr_screen();
+	get_s_win();
 	manage_columns();
 	signal(SIGTSTP, sig_interrupt);
 }
@@ -67,10 +68,10 @@ void			manage_signal()
 	if (DEBUG == 1)
 		ft_putendl("manage_signal");
 	signal(SIGWINCH, sig_winsize);
-//	signal(SIGTSTP, sig_interrupt);
-//	signal(SIGCONT, sig_continue);
-/*	signal(SIGINT, sig_exit_pgm);
+	signal(SIGTSTP, sig_interrupt);
+	signal(SIGCONT, sig_continue);
+	signal(SIGINT, sig_exit_pgm);
 	signal(SIGQUIT, sig_exit_pgm);
 	signal(SIGTERM, sig_exit_pgm);
 	signal(SIGKILL, sig_exit_pgm);
-*/}
+}
