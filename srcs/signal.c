@@ -41,8 +41,8 @@ void			manage_signal()
 	signal(SIGWINCH, sig_winsize);
 //	signal(SIGTSTP, sig_interrupt);
 //	signal(SIGCONT, sig_continue);
-/*	signal(SIGINT, sig_exit_pgm);
+	signal(SIGINT, sig_exit_pgm);
 	signal(SIGQUIT, sig_exit_pgm);
 	signal(SIGTERM, sig_exit_pgm);
 	signal(SIGKILL, sig_exit_pgm);
-*/}
+}
