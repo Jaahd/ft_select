@@ -31,7 +31,7 @@ static t_cduo		*cduo_new(char *name)
 	return (new);
 }
 
-int					cduo_pushback(t_cduo **lst, char *name)
+int					cduo_pushback(t_cduo **lst, char *name, int no_elt)
 {
 	if (DEBUG == 1)
 		ft_putendl("cduo pushbk");
@@ -43,6 +43,7 @@ int					cduo_pushback(t_cduo **lst, char *name)
 		*lst = cduo_new(name);
 		(*lst)->first = TRUE;
 		(*lst)->cursor = TRUE;
+		(*lst)->no_elt = no_elt;
 		(*lst)->next = *lst;
 		(*lst)->prev = *lst;
 		return (0);

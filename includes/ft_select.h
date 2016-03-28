@@ -29,6 +29,8 @@ typedef struct			s_cduo
 	int					first;
 	int					select;
 	int					cursor;
+	int					col_nb;
+	int					no_elt;
 	struct s_cduo		*prev;
 	struct s_cduo		*next;
 }						t_cduo;
@@ -39,10 +41,11 @@ typedef struct			s_glst
 	int					fd;
 	int					max_len;
 	int					nb_elt;
-	int					col_size_max;
+	int					nb_col;
+	int					col_size;
 }						t_glst;
 
-int						cduo_pushback(t_cduo **lst_param, char *name);
+int						cduo_pushback(t_cduo **lst_param, char *name, int no);
 void					free_lst_param();
 
 /*

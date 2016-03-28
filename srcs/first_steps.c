@@ -48,7 +48,7 @@ int 			fill_list(t_cduo **lst_param, int ac, char **av)
 	max_len = 0;
 	while (i < ac)
 	{
-		cduo_pushback(lst_param, av[i]);
+		cduo_pushback(lst_param, av[i], i + 1);
 		len = ft_strlen(av[i]);
 		if (len > 40)
 			max_len = 40;
