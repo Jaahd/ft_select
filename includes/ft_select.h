@@ -31,6 +31,8 @@ typedef struct			s_cduo
 	int					cursor;
 	int					col_nb;
 	int					no_elt;
+	int					first_disp;
+	int					last_disp;
 	struct s_cduo		*prev;
 	struct s_cduo		*next;
 }						t_cduo;

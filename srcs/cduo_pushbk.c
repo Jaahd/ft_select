@@ -23,6 +23,8 @@ static t_cduo		*cduo_new(char *name)
 		return (NULL);
 	new->name = NULL;
 	new->first = FALSE;
+	new->first_disp = FALSE;
+	new->last_disp = FALSE;
 	new->select = FALSE;
 	new->cursor = FALSE;
 	if (name == NULL)
@@ -43,16 +45,22 @@ int					cduo_pushback(t_cduo **lst, char *name, int no_elt)
 		*lst = cduo_new(name);
 		(*lst)->first = TRUE;
 		(*lst)->cursor = TRUE;
+		(*lst)->first_disp = TRUE;
 		(*lst)->no_elt = no_elt;
 		(*lst)->next = *lst;
 		(*lst)->prev = *lst;
 		return (0);
 	}
 	while (tmp->next->first != TRUE)
+	{
+		if (tmp->no_elt == (fct_size()->ws_row * get_stuff()->nb_col))
+			tmp->last_disp = TRUE;
 		tmp = tmp->next;
+	}
 	tmp->next = cduo_new(name);
 	tmp->next->prev = tmp;
 	tmp->next->next = *lst;
+	tmp->next->no_elt = no_elt;
 	(*lst)->prev = tmp->next;
 	return (0);
 }

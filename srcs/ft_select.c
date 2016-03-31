@@ -50,7 +50,7 @@ int				main(int ac, char **av)
 	get_stuff()->max_len = fill_list(&lst_param, ac, av);
 	while (1)
 	{
-		clr_screen();
+//		clr_screen();
 		manage_columns();
 		if ((ret = fct_read()) != NULL)
 			break ;
