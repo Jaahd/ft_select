@@ -51,7 +51,7 @@ int				manage_display(int j, int k, t_cduo *tmp)
 		if (tmp->select == TRUE)
 			ft_putstr("\033[7m");
 		if (tmp->cursor == TRUE)
-			ft_putstr("\033[4m");
+			ft_putstr("\033[31;1;4m");
 		len = ft_strlen(tmp->name);
 		if ((get_stuff()->nb_elt <= fct_size()->ws_row && len > fct_size()->ws_col) || (len > get_stuff()->col_size && get_stuff()->nb_elt > fct_size()->ws_row))
 			putchr_max_len_fd(tmp->name);

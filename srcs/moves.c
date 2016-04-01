@@ -9,6 +9,7 @@ int				down_arrow()
 	int					pos;
 	int					first_disp;
 
+	first_disp = 0;
 	tmp = get_stuff()->lst_param;
 	while (tmp->cursor == FALSE)
 	{
@@ -47,9 +48,11 @@ int				up_arrow()
 {
 	t_cduo				*tmp;
 	int					pos;
+	int					next_pos;
 	int					displayed_col;
 
 	pos = 0;
+	next_pos = 0;
 	displayed_col = fct_size()->ws_col / get_stuff()->col_size;
 	tmp = get_stuff()->lst_param;
 	while (tmp->cursor == FALSE)
@@ -61,15 +64,17 @@ int				up_arrow()
 		pos = tmp->no_elt;
 		printf("toto pouet\n");
 		tmp->first_disp = FALSE;
+		printf("-------------------------------------------no elt (%d) *** {%d} *** (%d) *******************************\n", tmp->no_elt, fct_size()->ws_row, pos - fct_size()->ws_row);
 		tmp = get_stuff()->lst_param;
-		printf("-------------------------------------------no elt (%d) *** (%d) *******************************\n", tmp->no_elt, pos - fct_size()->ws_row);
-		while (tmp->no_elt != pos - fct_size()->ws_row)
+		next_pos = pos - fct_size()->ws_row < 1 ? 1 : pos - fct_size()->ws_row;
+		while (tmp->no_elt != next_pos)
 			tmp = tmp->next;
 		tmp->first_disp = TRUE;
 	}
 	else if (tmp->first_disp == TRUE && tmp->first == TRUE && displayed_col < get_stuff()->nb_col)
 	{
-		printf("trololo lolilol\n");
+		if (tmp->first == TRUE)
+			printf("*********************************************************((%d))*******************\n", tmp->no_elt);
 		tmp->first_disp = FALSE;
 		while (tmp->no_elt != ((get_stuff()->nb_col - displayed_col) * fct_size()->ws_row))
 			tmp = tmp->next;

@@ -19,17 +19,13 @@ static t_cduo		*cduo_new(char *name)
 		ft_putendl("cduo new");
 	t_cduo			*new;
 
-	if ((new = (t_cduo *)malloc(sizeof(t_cduo))) == NULL)
-		return (NULL);
-	new->name = NULL;
-	new->first = FALSE;
-	new->first_disp = FALSE;
-	new->last_disp = FALSE;
-	new->select = FALSE;
-	new->cursor = FALSE;
-	if (name == NULL)
+	if ((new = (t_cduo *)malloc(sizeof(t_cduo))) == NULL || name == NULL)
 		return (NULL);
 	new->name = ft_strdup(name);
+	new->first = FALSE;
+	new->first_disp = FALSE;
+	new->select = FALSE;
+	new->cursor = FALSE;
 	return (new);
 }
 
@@ -52,15 +48,12 @@ int					cduo_pushback(t_cduo **lst, char *name, int no_elt)
 		return (0);
 	}
 	while (tmp->next->first != TRUE)
-	{
-		if (tmp->no_elt == (fct_size()->ws_row * get_stuff()->nb_col))
-			tmp->last_disp = TRUE;
 		tmp = tmp->next;
-	}
 	tmp->next = cduo_new(name);
 	tmp->next->prev = tmp;
 	tmp->next->next = *lst;
 	tmp->next->no_elt = no_elt;
+//	printf("*******************************************((%d))*************************************\n", tmp->next->no_elt);
 	(*lst)->prev = tmp->next;
 	return (0);
 }
