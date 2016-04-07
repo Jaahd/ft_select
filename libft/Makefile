@@ -90,18 +90,18 @@ SRC = ft_memset.c \
 	  srch_begining.c \
 	  duo_pushbk.c \
 	  duo_del.c \
+	  free_duo.c \
 	  free_tab.c \
+	  free_lst.c \
 	  lst_to_tbl.c \
 	  ft_lst_count.c \
 	  tbl_len.c \
-	  ft_free_tbl.c \
 	  ft_properjoin.c \
 	  ft_atoi_base.c \
 	  ft_hidenp.c \
 	  ft_swap.c \
 	  int_swap.c \
-	  intcmp.c \
-	  ft_putchr.c
+	  intcmp.c
 
 OBJ = $(patsubst %.c, $(OPATH)/%.o, $(SRC))
 

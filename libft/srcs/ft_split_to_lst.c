@@ -26,7 +26,7 @@ t_list		*ft_split_to_lst(const char *s, char c)
 	while (s != NULL && s[cpt1])
 	{
 		cpt1 = cpt2;
-		while (s[cpt1] && cpt2 < (size_t)ft_strlen(s) && s[cpt2] != c)
+		while (s[cpt1] && cpt2 < ft_strlen(s) && s[cpt2] != c)
 			cpt2++;
 		tmp = ft_strsub(s, cpt1, cpt2 - cpt1);
 		if (tmp != NULL && (cpt2 - cpt1) > 0)

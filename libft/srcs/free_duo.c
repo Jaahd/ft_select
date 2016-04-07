@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_tbl_s.c                                    :+:      :+:    :+:   */
+/*   free_duo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: avacher <avacher@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/09 11:27:38 by avacher           #+#    #+#             */
-/*   Updated: 2015/12/10 21:43:22 by avacher          ###   ########.fr       */
+/*   Created: 2015/12/08 21:03:13 by avacher           #+#    #+#             */
+/*   Updated: 2015/12/12 12:49:47 by avacher          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free_tbl_s(char **tbl)
+int			free_duo(t_duo **tab)
 {
-	int		i;
+	t_duo			*tmp;
+	t_duo			*tmp2;
 
-	i = 0;
-	while (tbl != NULL)
+	tmp = *tab;
+	while (tmp)
 	{
-		free(tbl[i]);
-		i++;
+		tmp2 = tmp;
+		tmp = tmp->next;
+		free(tmp2->name);
+		free(tmp2->value);
+		free(tmp2);
 	}
-	free(tbl);
+	free(*tab);
+	return (0);
 }

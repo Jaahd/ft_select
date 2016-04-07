@@ -52,6 +52,7 @@ void					free_lst_param();
 /*
 ** first_steps.c
 */
+int						ft_putchr(int c);
 void					clr_screen();
 int						fill_list(t_cduo **lst_param, int ac, char **av);
 char					**fct_read();

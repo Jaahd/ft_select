@@ -130,10 +130,9 @@ int				print_return(char **ret)
 
 	while (ret[i] != NULL)
 	{
-		ft_putstr_fd(ret[i], 0);
-		ft_putchar_fd(' ', 0);
+		ft_putstr_fd(ret[i], 1);
+		ft_putchar_fd(' ', 1);
 		i++;
 	}
-	ft_putchar_fd('\n', 0);
 	return (0);
 }

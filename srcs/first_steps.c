@@ -25,6 +25,15 @@ static char			**get_input(int buff)
 	return (ret);
 }
 
+int				ft_putchr(int c)
+{
+	int			fd;
+
+	fd = get_stuff()->fd;
+	write(fd, &c, 1);
+	return (0);
+}
+
 void			clr_screen()
 {
 	if (DEBUG == 1)

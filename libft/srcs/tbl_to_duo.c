@@ -21,11 +21,12 @@ t_duo				*tbl_to_duo(char **tbl, char c)
 
 	lst = NULL;
 	i = 0;
-	while (tbl[i])
+	while (tbl && tbl[i])
 	{
 		tmp_name = srch_begining(tbl[i], c);
 		tmp_value = srch_value(tbl[i], c);
 		duo_pushback(&lst, tmp_name, tmp_value);
+		free(tmp_name);
 		i++;
 	}
 	return (lst);

@@ -13,9 +13,9 @@
 #include <string.h>
 #include "libft.h"
 
-int				ft_strlen(const char *s)
+size_t			ft_strlen(const char *s)
 {
-	int		cpt;
+	size_t		cpt;
 
 	cpt = 0;
 	if (s)

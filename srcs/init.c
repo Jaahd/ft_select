@@ -11,8 +11,6 @@ int				enable_keyboard(void)
 		ft_putendl("enable_keyboard");
 	char	*str;
 
-	if (tgetstr("ks", NULL) == NULL)
-		return (-1);
 	if ((str = tgetstr("ke", NULL)) == NULL)
 		return (-1);
 	tputs(str, 1, ft_putchr);
@@ -38,19 +36,20 @@ int				termcap_init()
 	char				*name_term;
 
 	manage_signal();
-	if ((get_stuff()->fd = open(ttyname(0), O_WRONLY)) == -1)
+	if ((get_stuff()->fd = open(ttyname(0), O_WRONLY | O_NOCTTY)) == -1)
 		return (-1);
 	if ((name_term = getenv("TERM")) == NULL)
 		return (-1);
 	if (tgetent(NULL, name_term) == -1)
 		return (-1);
-	if (tcgetattr(0, get_term()) == -1)
+	if (tcgetattr(get_stuff()->fd, get_term()) == -1)
 		return (-1);
 	get_term()->c_lflag &= ~(ICANON | ECHO); // mode canonique
 	get_term()->c_cc[VMIN] = 1;
 	get_term()->c_cc[VTIME] = 0;
-	if (tcsetattr(0, TCSADRAIN, get_term()) == -1)
+	if (tcsetattr(get_stuff()->fd, TCSADRAIN, get_term()) == -1)
 		return (-1);
+	tputs(tgetstr("ti", NULL), 1, ft_putchr);
 	hide_cursor();
 	enable_keyboard();
 	get_s_win();

@@ -60,8 +60,8 @@ int				main(int ac, char **av)
 		if ((ret = fct_read()) != NULL)
 			break ;
 	}
+	termcap_reset();
 	if (ret != NULL)
 		print_return(ret);
-	termcap_reset();
 	return (0);
 }
