@@ -73,6 +73,7 @@ int					esc_key()
 	if (DEBUG == 1)
 		ft_putendl("esc_key");
 	termcap_reset();
+	exit(EXIT_SUCCESS);
 	return (0);
 }
 
@@ -88,6 +89,7 @@ int					suppr_key()
 	if (tmp->first == TRUE)
 	{
 		tmp->next->first = TRUE;
+		tmp->next->first_disp = TRUE;
 		get_stuff()->lst_param = tmp->next;
 	}
 	tmp->next->prev = tmp->prev;
@@ -101,5 +103,6 @@ int					suppr_key()
 	get_stuff()->nb_elt -= 1;
 	if (get_stuff()->nb_elt == 0)
 		esc_key();
+//	printf("\t\t\t\t\t((%s))\n", get_stuff()->lst_param->name);
 	return (0);
 }

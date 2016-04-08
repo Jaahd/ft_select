@@ -26,11 +26,12 @@ void			sig_interrupt(int sig)
 	cp[0] = get_term()->c_cc[VSUSP];
 	cp[1] = 0;
 	clr_screen();
+	tputs(tgetstr("te", NULL), 1, ft_putchr);
 	display_cursor();
 	disable_keyboard();
-	tcgetattr(0, get_term());
+	tcgetattr(get_stuff()->fd, get_term());
 	get_term()->c_lflag |= (ICANON | ECHO);
-	tcsetattr(0, 0, get_term());
+	tcsetattr(get_stuff()->fd, 0, get_term());
 	close(get_stuff()->fd);
 	signal(SIGTSTP, SIG_DFL);
 	signal(SIGCONT, sig_continue);
@@ -46,9 +47,10 @@ void			sig_continue(int sig)
 	get_term()->c_lflag &= ~(ICANON | ECHO);
 	get_term()->c_cc[VMIN] = 1;
 	get_term()->c_cc[VTIME] = 0;
-	tcsetattr(0, TCSADRAIN, get_term());
+	tcsetattr(get_stuff()->fd, TCSADRAIN, get_term());
 	hide_cursor();
 	enable_keyboard();
+	tputs(tgetstr("ti", NULL), 1, ft_putchr);
 	clr_screen();
 	get_s_win();
 	manage_columns();
@@ -61,6 +63,7 @@ void			sig_exit_pgm(int sig)
 		ft_putendl("sig_exit_pgm");
 	(void)sig;
 	termcap_reset();
+	exit(EXIT_FAILURE);
 }
 
 void			manage_signal()

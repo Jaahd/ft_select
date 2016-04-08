@@ -5,7 +5,7 @@
 
 int		putchr_max_len_fd(char *str)
 {
-	if (DEBUG == 1)
+//	if (DEBUG == 1)
 		ft_putendl("putchr_max_len_fd");
 	int				i;
 	int				col_size;
@@ -31,9 +31,13 @@ int				get_col_size()
 	if (get_stuff()->nb_elt % fct_size()->ws_row != 0)
 		get_stuff()->nb_col++;
 	col_width = fct_size()->ws_col / get_stuff()->nb_col;
-	if (col_width < 20)
+	if (col_width > 20 && col_width >  get_stuff()->max_len)
+		col_width = get_stuff()->max_len;
+	else if (col_width < 20 && get_stuff()->max_len > 20)
 		col_width = 20;
-	get_stuff()->col_size = col_width;
+	else if (col_width < 20 && get_stuff()->max_len < 20)
+		col_width = get_stuff()->max_len;
+	get_stuff()->col_size = col_width + 2;
 //	printf("**********************nb elt {%d} // col_width {%d} // max_len {%d} // col_size {%d}**************************\n", get_stuff()->nb_elt, col_width, get_stuff()->max_len, get_stuff()->col_size);
 	return (0);
 }
@@ -41,7 +45,7 @@ int				get_col_size()
 int				manage_display(int j, int k, t_cduo *tmp)
 {
 	if (DEBUG == 1)
-		ft_putendl("manage_display");
+		ft_putendl("\t\tmanage_display");
 	int				len;
 
 	len = 0;
@@ -49,15 +53,15 @@ int				manage_display(int j, int k, t_cduo *tmp)
 	if (fct_size()->ws_col - ((k * (get_stuff()->col_size)) + get_stuff()->col_size) >= 0)
 	{
 		if (tmp->select == TRUE)
-			ft_putstr("\033[7m");
+			ft_putstr_fd("\033[7m", get_stuff()->fd);
 		if (tmp->cursor == TRUE)
-			ft_putstr("\033[31;1;4m");
+			ft_putstr_fd("\033[31;1;4m", get_stuff()->fd);
 		len = ft_strlen(tmp->name);
 		if ((get_stuff()->nb_elt <= fct_size()->ws_row && len > fct_size()->ws_col) || (len > get_stuff()->col_size && get_stuff()->nb_elt > fct_size()->ws_row))
 			putchr_max_len_fd(tmp->name);
 		else
 			tputs(tmp->name, 1, ft_putchr);
-		ft_putstr("\033[0m");
+		ft_putstr_fd("\033[0m", get_stuff()->fd);
 	}
 	else
 	{
@@ -88,7 +92,7 @@ int				manage_win_size()
 int				manage_columns()
 {
 	if (DEBUG == 1)
-		ft_putendl("manage columns");
+		ft_putendl("\t\t\t\t\tmanage columns");
 	t_cduo			*tmp;
 	int				i;
 	int				j;
@@ -134,5 +138,6 @@ int				print_return(char **ret)
 		ft_putchar_fd(' ', 1);
 		i++;
 	}
+	free_tab(&ret);
 	return (0);
 }
