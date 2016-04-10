@@ -38,34 +38,30 @@ int				get_col_size()
 	else if (col_width < 20 && get_stuff()->max_len < 20)
 		col_width = get_stuff()->max_len;
 	get_stuff()->col_size = col_width + 2;
-//	printf("**********************nb elt {%d} // col_width {%d} // max_len {%d} // col_size {%d}**************************\n", get_stuff()->nb_elt, col_width, get_stuff()->max_len, get_stuff()->col_size);
 	return (0);
 }
 
-int				manage_three_dots()
+int				three_dots_up(int size)
 {
-	t_cduo			*tmp;
 	int				len;
-	int				i;
 
-	len = 0;
-	i = 0;
-	tmp = get_stuff()->lst_param;
-	while (tmp->first != TRUE)
-		tmp = tmp->next;
-	if (tmp->first == TRUE && tmp->first_disp == FALSE)
+	len = size > (get_stuff()->col_size - 8) ? (get_stuff()->col_size - 8) : size;
+	if (size >= (get_stuff()->col_size - 1))
 	{
-//		printf("(((((((((((((((((((((((( lol))))))))))))))))))))))))))\n");
-		len = ft_strlen(tmp->name);
-//		tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchr);
-//		while (i < len)
-//		{
-//			tputs(tgetstr("dc", NULL), 1, ft_putchr);
-//			tputs(tgetstr("nd", NULL), 1, ft_putchr);
-//		}
-		tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchr);
-		tputs("[...]", 1, ft_putchr);
+		len = get_stuff()->col_size - 8;
+	tputs(tgoto(tgetstr("cm", NULL), len, 0), 1, ft_putchr);
+	tputs("...[...]", 1, ft_putchr);
 	}
+	else
+	{
+	tputs(tgoto(tgetstr("cm", NULL), len, 0), 1, ft_putchr);
+	tputs(" [...]", 1, ft_putchr);
+	}
+	return (0);
+}
+
+int				three_dots_down()
+{
 	tputs(tgoto(tgetstr("cm", NULL), fct_size()->ws_col - 5, fct_size()->ws_row), 1, ft_putchr);
 	tputs("[...]", 1, ft_putchr);
 	return (0);
@@ -79,13 +75,13 @@ int				manage_display(int j, int k, t_cduo *tmp)
 
 	len = 0;
 	tputs(tgoto(tgetstr("cm", NULL), (k * (get_stuff()->col_size)), j), 1, ft_putchr);
+	len = ft_strlen(tmp->name);
 	if (fct_size()->ws_col - ((k * (get_stuff()->col_size)) + get_stuff()->col_size) >= 0)
 	{
 		if (tmp->select == TRUE)
 			ft_putstr_fd("\033[7m", get_stuff()->fd);
 		if (tmp->cursor == TRUE)
 			ft_putstr_fd("\033[31;1;4m", get_stuff()->fd);
-		len = ft_strlen(tmp->name);
 		if ((get_stuff()->nb_elt <= fct_size()->ws_row && len > fct_size()->ws_col) || (len > get_stuff()->col_size && get_stuff()->nb_elt > fct_size()->ws_row))
 			putchr_max_len_fd(tmp->name);
 		else
@@ -93,7 +89,9 @@ int				manage_display(int j, int k, t_cduo *tmp)
 		ft_putstr_fd("\033[0m", get_stuff()->fd);
 	}
 	else
-		manage_three_dots();
+		three_dots_down();
+	if (tmp->first == FALSE && tmp->first_disp == TRUE)
+		three_dots_up(len);
 	return (0);
 }
 
