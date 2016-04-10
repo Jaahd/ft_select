@@ -42,6 +42,35 @@ int				get_col_size()
 	return (0);
 }
 
+int				manage_three_dots()
+{
+	t_cduo			*tmp;
+	int				len;
+	int				i;
+
+	len = 0;
+	i = 0;
+	tmp = get_stuff()->lst_param;
+	while (tmp->first != TRUE)
+		tmp = tmp->next;
+	if (tmp->first == TRUE && tmp->first_disp == FALSE)
+	{
+//		printf("(((((((((((((((((((((((( lol))))))))))))))))))))))))))\n");
+		len = ft_strlen(tmp->name);
+//		tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchr);
+//		while (i < len)
+//		{
+//			tputs(tgetstr("dc", NULL), 1, ft_putchr);
+//			tputs(tgetstr("nd", NULL), 1, ft_putchr);
+//		}
+		tputs(tgoto(tgetstr("cm", NULL), 0, 0), 1, ft_putchr);
+		tputs("[...]", 1, ft_putchr);
+	}
+	tputs(tgoto(tgetstr("cm", NULL), fct_size()->ws_col - 5, fct_size()->ws_row), 1, ft_putchr);
+	tputs("[...]", 1, ft_putchr);
+	return (0);
+}
+
 int				manage_display(int j, int k, t_cduo *tmp)
 {
 	if (DEBUG == 1)
@@ -64,10 +93,7 @@ int				manage_display(int j, int k, t_cduo *tmp)
 		ft_putstr_fd("\033[0m", get_stuff()->fd);
 	}
 	else
-	{
-		tputs(tgoto(tgetstr("cm", NULL), fct_size()->ws_col - 5, fct_size()->ws_row), 1, ft_putchr);
-		tputs("[...]", 1, ft_putchr);
-	}
+		manage_three_dots();
 	return (0);
 }
 
@@ -106,6 +132,8 @@ int				manage_columns()
 		tmp = tmp->next;
 	if (tmp->first == FALSE)
 		i++;
+//	if (tmp->first_disp == TRUE)
+//		printf("[[[[[%d]]]]]\n", tmp->no_elt);
 	while ((i += tmp->first) < 2)
 	{
 		tmp->col_nb = k;

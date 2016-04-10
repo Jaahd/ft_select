@@ -52,7 +52,7 @@ char				**enter_key()
 	ret = enter_key_bis(ret);
 	return (ret);
 }
-
+/*
 int					space_key()
 {
 	if (DEBUG == 1)
@@ -67,7 +67,7 @@ int					space_key()
 	tmp->next->cursor = TRUE;
 	return (0);
 }
-
+*/
 int					esc_key()
 {
 	if (DEBUG == 1)

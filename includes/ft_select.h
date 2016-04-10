@@ -80,14 +80,14 @@ int						print_return(char **ret);
 /*
 ** moves.c
 */
-int						down_arrow();
+int						down_arrow(int i);
 int						up_arrow();
 
 /*
 ** actions.c
 */
 char					**enter_key();
-int						space_key();
+//int						space_key();
 int						esc_key();
 int						suppr_key();
 

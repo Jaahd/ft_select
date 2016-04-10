@@ -1,34 +1,32 @@
 #include "ft_select.h"
 
-int				down_arrow()
+int				down_arrow(int i)
 {
 	t_cduo				*tmp;
 	int					result;
-	int					a;
-	int					b;
 	int					pos;
-	int					first_disp;
+	int					displayed_col;
 
-	first_disp = 0;
+	pos = 0;
+	displayed_col = fct_size()->ws_col / get_stuff()->col_size;
 	tmp = get_stuff()->lst_param;
 	while (tmp->cursor == FALSE)
 	{
 		if (tmp->first_disp == TRUE)
-			first_disp = tmp->no_elt;
+			pos = tmp->no_elt;
 		tmp = tmp->next;
 	}
+	if (i == 1) // if a verif
+		tmp->select = tmp->select == TRUE ? FALSE : TRUE;
 	tmp->cursor = FALSE;
 	tmp->next->cursor = TRUE;
-	a = get_stuff()->col_size;
-	b = fct_size()->ws_col / a;
-	result = fct_size()->ws_row * b;
-	if (tmp->next->no_elt == (result + first_disp) && tmp->next->first == FALSE)
+	result = fct_size()->ws_row * displayed_col;
+	if (tmp->next->no_elt == (result + pos) && tmp->next->first == FALSE)
 	{
 		tmp = get_stuff()->lst_param;
 		while(tmp->first_disp != TRUE)
 			tmp = tmp->next;
 		tmp->first_disp = FALSE;
-		pos = tmp->no_elt;
 		while (tmp->no_elt < (pos + fct_size()->ws_row))
 			tmp = tmp->next;
 		tmp->first_disp = TRUE;
@@ -59,21 +57,20 @@ int				up_arrow()
 		tmp = tmp->prev;
 	tmp->cursor = FALSE;
 	tmp->prev->cursor = TRUE;
-//	if (tmp->first == FALSE && tmp->first_disp == TRUE && (fct_size()->ws_row * (fct_size()->ws_col / get_stuff()->col_size)) < get_stuff()->nb_elt)
-//	{
-//		pos = tmp->no_elt;
-//		tmp->first_disp = FALSE;
-//		tmp = get_stuff()->lst_param;
-//		next_pos = pos - fct_size()->ws_row; // < 1 ? 1 : pos - fct_size()->ws_row;
-//		while (tmp->no_elt != next_pos)
-//			tmp = tmp->next;
-//		tmp->first_disp = TRUE;
-//	}
-	if (tmp->first_disp == TRUE && displayed_col < get_stuff()->nb_col)
+	if (tmp->first == FALSE && tmp->first_disp == TRUE && displayed_col < get_stuff()->nb_col)
+	{
+		pos = tmp->no_elt;
+		tmp->first_disp = FALSE;
+		next_pos = pos - fct_size()->ws_row < 1 ? 1 : pos - fct_size()->ws_row;
+		while (tmp->no_elt != next_pos)
+			tmp = tmp->prev;
+		tmp->first_disp = TRUE;
+	}
+	else if (tmp->first == TRUE && tmp->first_disp == TRUE && displayed_col < get_stuff()->nb_col)
 	{
 		tmp->first_disp = FALSE;
-		while (tmp->no_elt != ((get_stuff()->nb_col - displayed_col) * fct_size()->ws_row))
-			tmp = tmp->next;
+		while (tmp->no_elt != (((get_stuff()->nb_col - displayed_col) * fct_size()->ws_row) + 1))
+			tmp = tmp->prev;
 		tmp->first_disp = TRUE;
 	}
 	return (0);

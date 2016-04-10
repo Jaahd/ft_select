@@ -11,17 +11,17 @@ static char			**get_input(int buff)
 
 	ret = NULL;
 	if (buff == DOWN_ARROW)
-		down_arrow();
+		down_arrow(0);
 	if (buff == UP_ARROW)
 		up_arrow();
 	if (buff == SPACE)
-		space_key();
+		down_arrow(1);
 	if (buff == DELETE || buff == BACKSPACE)
 		suppr_key();
 	if (buff == ESCAPE)
 		esc_key();
 	if (buff  == RETURN)
-		ret = enter_key(buff);
+		ret = enter_key();
 	return (ret);
 }
 
