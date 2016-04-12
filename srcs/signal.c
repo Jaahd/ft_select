@@ -11,17 +11,21 @@ void			sig_winsize(int sig)
 	if (DEBUG == 1)
 		ft_putendl("sig_winsize");
 	t_cduo			*tmp;
+	int				i;
 
+	i = 0;
 	(void)sig;
 	get_s_win();
 	clr_screen();
 	get_col_size();
 	get_stuff()->nb_col = get_stuff()->nb_elt / fct_size()->ws_row;
 	tmp = get_stuff()->lst_param;
-	while (tmp->cursor == FALSE)
+	while ((i += tmp->first) <= 2)
 	{
 		if (tmp->first_disp == TRUE)
 			tmp->first_disp = FALSE;
+		if (tmp->cursor == TRUE)
+			break ;
 		tmp = tmp->next;
 	}
 	tmp->cursor = FALSE;

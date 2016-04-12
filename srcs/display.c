@@ -45,7 +45,7 @@ int				three_dots_up(int len, t_cduo *tmp)
 {
 	int				i;
 
-	i = len > (get_stuff()->col_size - 10) ? (get_stuff()->col_size - 10) : len;
+	i = len > (get_stuff()->col_size - 6) ? (get_stuff()->col_size - 10) : len;
 	if (len >= (get_stuff()->col_size - 1))
 	{
 		i = get_stuff()->col_size - 10;
@@ -53,7 +53,7 @@ int				three_dots_up(int len, t_cduo *tmp)
 //		tputs(tgoto(tgetstr("cm", NULL), len, 0), 1, ft_putchr);
 	}
 	else
-		putchr_max_len_fd(tmp->name, 0);
+		tputs(tmp->name, 1, ft_putchr);
 	ft_putstr_fd("\033[0m", get_stuff()->fd);
 	tputs(" [...]", 1, ft_putchr);
 	if (tmp->select == TRUE)

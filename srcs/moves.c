@@ -1,33 +1,34 @@
 #include "ft_select.h"
 #include "libft.h"
 
-int				down_arrow(int i)
+int				down_arrow(int space)
 {
 	t_cduo				*tmp;
-	int					result;
 	int					pos;
 	int					displayed_col;
+	int					i;
 
+	i = 0;
 	pos = 0;
 	displayed_col = fct_size()->ws_col / get_stuff()->col_size;
 	tmp = get_stuff()->lst_param;
-	while (tmp->cursor == FALSE)
-	{
-		if (tmp->first_disp == TRUE)
-			pos = tmp->no_elt;
+	while (tmp->first_disp != TRUE)
 		tmp = tmp->next;
-	}
-	if (i == 1)
+	pos = tmp->no_elt;
+	tmp = get_stuff()->lst_param;
+	while (tmp->cursor != TRUE)
+		tmp = tmp->next;
+	if (space == 1)
 		tmp->select = tmp->select == TRUE ? FALSE : TRUE;
 	tmp->cursor = FALSE;
 	tmp->next->cursor = TRUE;
-	result = fct_size()->ws_row * displayed_col;
-	if (tmp->next->no_elt >= (result + pos) && tmp->next->first == FALSE)
+	if (tmp->next->no_elt >= (fct_size()->ws_row * displayed_col + pos)
+			&& tmp->next->first == FALSE)
 	{
+		tmp->name = "*********trololo*********";
 		tmp = get_stuff()->lst_param;
 		while(tmp->first_disp != TRUE)
 			tmp = tmp->next;
-		pos = tmp->no_elt;
 		tmp->first_disp = FALSE;
 		while (tmp->no_elt < (pos + fct_size()->ws_row))
 			tmp = tmp->next;
@@ -35,11 +36,13 @@ int				down_arrow(int i)
 	}
 	else if (tmp->next->first == TRUE)
 	{
-		tmp->next->first_disp = TRUE;
+		tmp->name = "toto_pouet_lolilol";
 		tmp = get_stuff()->lst_param;
-		while (tmp->next->first_disp == TRUE)
+		while (tmp->first_disp != TRUE)
 			tmp = tmp->next;
-		tmp->next->first_disp = FALSE;
+		tmp->first_disp = FALSE;
+		tmp = get_stuff()->lst_param;
+		tmp->first_disp = TRUE;
 	}
 	return (0);
 }
