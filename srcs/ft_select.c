@@ -14,7 +14,6 @@
 #include "ft_select.h"
 #include "libft.h"
 
-
 int				manage_error(int i)
 {
 	if (i == 1)

@@ -117,6 +117,7 @@ t_termios				*get_term();
 /*
 ** signal
 */
+void					sig_continue(int sig);
 void					manage_signal();
 
 #endif

@@ -17,8 +17,6 @@
 #include "ft_select.h"
 #include "libft.h"
 
-void			sig_continue(int sig);
-
 static void		sig_winsize(int sig)
 {
 	t_cduo			*tmp;
