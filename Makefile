@@ -20,6 +20,7 @@ SRC = 	ft_select.c \
 		reset.c \
 		first_steps.c \
 		display.c \
+		display_select.c \
 		moves.c \
 		actions.c \
 		manage_struct.c \

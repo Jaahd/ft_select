@@ -1,15 +1,25 @@
-#include <term.h> // pour tputs
-#include <termios.h> // pour tgetstr
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   manage_struct.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: avacher <avacher@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/04/12 18:37:29 by avacher           #+#    #+#             */
+/*   Updated: 2016/04/12 18:37:29 by avacher          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <term.h>
+#include <termios.h>
 #include <stdlib.h>
-#include <unistd.h> // pour ttyname
-#include <sys/ioctl.h> // pour ioctl
+#include <unistd.h>
+#include <sys/ioctl.h>
 #include "ft_select.h"
 #include "libft.h"
 
-t_glst			*get_stuff()
+t_glst			*get_stuff(void)
 {
-	if (DEBUG == 1)
-		ft_putendl("get_stuff");
 	static t_glst	*stuff = NULL;
 
 	if (stuff == NULL)
@@ -17,10 +27,8 @@ t_glst			*get_stuff()
 	return (stuff);
 }
 
-t_termios		*get_term()
+t_termios		*get_term(void)
 {
-	if (DEBUG == 1)
-		ft_putendl("get_term");
 	static t_termios	*term = NULL;
 
 	if (term == NULL)
@@ -28,10 +36,8 @@ t_termios		*get_term()
 	return (term);
 }
 
-t_winsize		*fct_size()
+t_winsize		*fct_size(void)
 {
-	if (DEBUG == 1)
-		ft_putendl("fct size");
 	static t_winsize	*win_size = NULL;
 
 	if (win_size == NULL)
@@ -39,11 +45,8 @@ t_winsize		*fct_size()
 	return (win_size);
 }
 
-int				get_s_win()
+int				get_s_win(void)
 {
-	if (DEBUG == 1)
-		ft_putendl("get s win");
-
 	ioctl(get_stuff()->fd, TIOCGWINSZ, fct_size());
 	return (0);
 }

@@ -1,7 +1,19 @@
-#include <term.h> //pour tgetent
-#include <termios.h> // pour tcgetattr / tcsetattr
-#include <stdlib.h> // pour getenv
-#include <unistd.h> // pour close
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_select.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: avacher <avacher@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/04/12 18:37:29 by avacher           #+#    #+#             */
+/*   Updated: 2016/04/12 18:37:29 by avacher          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <term.h>
+#include <termios.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include "ft_select.h"
 #include "libft.h"
 
@@ -9,8 +21,6 @@
 
 int				manage_error(int i)
 {
-	if (DEBUG == 1)
-		ft_putendl("manage error");
 	if (i == 1)
 		ft_putendl("ft_select: can't initialize termcap");
 	if (i == 2)
@@ -20,10 +30,8 @@ int				manage_error(int i)
 	return (-1);
 }
 
-void			free_lst_param()
+void			free_lst_param(void)
 {
-	if (DEBUG == 1)
-		ft_putendl("free_lst_param");
 	t_cduo				*tmp;
 
 	if (get_stuff()->lst_param == NULL)

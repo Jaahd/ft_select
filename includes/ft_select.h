@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_select.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: avacher <avacher@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/04/12 18:37:29 by avacher           #+#    #+#             */
+/*   Updated: 2016/04/12 18:37:29 by avacher          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_SELECT_H
 # define FT_SELECT_H
 
@@ -17,11 +29,9 @@
 # define BACKSPACE 127
 # define RETURN 10
 # define ESCAPE 27
-//# define RIGHT_ARROW 4414235
-//# define LEFT_ARROW 4479771
 
-typedef struct			termios t_termios;
-typedef struct			winsize t_winsize;
+typedef struct termios	t_termios;
+typedef struct winsize	t_winsize;
 
 typedef struct			s_cduo
 {
@@ -47,36 +57,41 @@ typedef struct			s_glst
 }						t_glst;
 
 int						cduo_pushback(t_cduo **lst_param, char *name, int no);
-void					free_lst_param();
+void					free_lst_param(void);
 
 /*
 ** first_steps.c
 */
 int						ft_putchr(int c);
-void					clr_screen();
+void					clr_screen(void);
 int						fill_list(t_cduo **lst_param, int ac, char **av);
-char					**fct_read();
+char					**fct_read(void);
 
 /*
 ** init.c
 */
 int						enable_keyboard(void);
 int						hide_cursor(void);
-int						termcap_init();
+int						termcap_init(void);
 
 /*
 ** reset.c
 */
 int						disable_keyboard(void);
 int						display_cursor(void);
-void					termcap_reset();
+void					termcap_reset(void);
 
 /*
 ** display.c
 */
-int						get_col_size();
-int						manage_columns();
+int						get_col_size(void);
+int						manage_win_size(void);
 int						print_return(char **ret);
+
+/*
+** display_select.c
+*/
+int						manage_columns(void);
 
 /*
 ** moves.c
@@ -88,7 +103,6 @@ int						up_arrow();
 ** actions.c
 */
 char					**enter_key();
-//int						space_key();
 int						esc_key();
 int						suppr_key();
 
@@ -109,3 +123,8 @@ void					sig_continue(int sig);
 void					sig_exit_pgm(int sig);
 
 #endif
+
+/*
+**# define RIGHT_ARROW 4414235
+**# define LEFT_ARROW 4479771
+*/

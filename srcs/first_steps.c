@@ -1,31 +1,39 @@
-#include <unistd.h> // read
-#include <term.h> //pour tgetent / tgetstr / tputs
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   first_steps.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: avacher <avacher@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/04/12 18:37:28 by avacher           #+#    #+#             */
+/*   Updated: 2016/04/12 18:37:28 by avacher          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <unistd.h>
+#include <term.h>
 #include "ft_select.h"
 #include "libft.h"
 
 int				ft_putchr(int c)
 {
-	int			fd;
+	int					fd;
 
 	fd = get_stuff()->fd;
 	write(fd, &c, 1);
 	return (0);
 }
 
-void			clr_screen()
+void			clr_screen(void)
 {
-	if (DEBUG == 1)
-		ft_putendl("clr screen");
-	char			 *str;
+	char				*str;
 
 	str = tgetstr("cl", NULL);
 	tputs(str, 1, ft_putchr);
 }
 
-int 			fill_list(t_cduo **lst_param, int ac, char **av)
+int				fill_list(t_cduo **lst_param, int ac, char **av)
 {
-	if (DEBUG == 1)
-		ft_putendl("fill list");
 	int					i;
 	int					len;
 	int					max_len;
@@ -48,10 +56,8 @@ int 			fill_list(t_cduo **lst_param, int ac, char **av)
 	return (max_len);
 }
 
-static char			**get_input(int buff)
+static char		**get_input(int buff)
 {
-	if (DEBUG == 1)
-		ft_putendl("get_input");
 	char				**ret;
 
 	ret = NULL;
@@ -65,22 +71,20 @@ static char			**get_input(int buff)
 		suppr_key();
 	if (buff == ESCAPE)
 		esc_key();
-	if (buff  == RETURN)
+	if (buff == RETURN)
 		ret = enter_key();
 	return (ret);
 }
 
-char 				**fct_read()
+char			**fct_read(void)
 {
-	if (DEBUG == 1)
-		ft_putendl("fct read");
 	int					buff;
 	char				**ret;
 
 	buff = 0;
 	ret = NULL;
 	if (read(0, &buff, 4) == -1)
-		return (NULL);//
+		return (NULL);
 	ret = get_input(buff);
 	return (ret);
 }

@@ -1,10 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   actions.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: avacher <avacher@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/04/12 18:37:28 by avacher           #+#    #+#             */
+/*   Updated: 2016/04/12 18:37:28 by avacher          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "ft_select.h"
 
 static char			**enter_key_bis(char **ret)
 {
-	if (DEBUG == 1)
-		ft_putendl("enter_key_bis");
 	int					j;
 	t_cduo				*tmp;
 
@@ -30,10 +40,8 @@ static char			**enter_key_bis(char **ret)
 	return (ret);
 }
 
-char				**enter_key()
+char				**enter_key(void)
 {
-	if (DEBUG == 1)
-		ft_putendl("enter_key");
 	char				**ret;
 	t_cduo				*tmp;
 	int					i;
@@ -53,19 +61,15 @@ char				**enter_key()
 	return (ret);
 }
 
-int					esc_key()
+int					esc_key(void)
 {
-	if (DEBUG == 1)
-		ft_putendl("esc_key");
 	termcap_reset();
 	exit(EXIT_SUCCESS);
 	return (0);
 }
 
-int					suppr_key()
+int					suppr_key(void)
 {
-	if (DEBUG == 1)
-		ft_putendl("suppr_key");
 	t_cduo				*tmp;
 
 	tmp = get_stuff()->lst_param;
@@ -88,6 +92,5 @@ int					suppr_key()
 	get_stuff()->nb_elt -= 1;
 	if (get_stuff()->nb_elt == 0)
 		esc_key();
-//	printf("\t\t\t\t\t((%s))\n", get_stuff()->lst_param->name);
 	return (0);
 }

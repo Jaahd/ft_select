@@ -1,13 +1,23 @@
-#include <term.h> //pour tgetent
-#include <termios.h> // pour tcgetattr / tcsetattr
-#include <stdlib.h> // pour getenv / exit
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   reset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: avacher <avacher@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/04/12 18:37:29 by avacher           #+#    #+#             */
+/*   Updated: 2016/04/12 18:37:29 by avacher          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <term.h>
+#include <termios.h>
+#include <stdlib.h>
 #include "ft_select.h"
 #include "libft.h"
 
 int				disable_keyboard(void)
 {
-	if (DEBUG == 1)
-		ft_putendl("disable_keyboard");
 	char	*str;
 
 	if (tgetstr("ks", NULL) == NULL)
@@ -20,8 +30,6 @@ int				disable_keyboard(void)
 
 int				display_cursor(void)
 {
-	if (DEBUG == 1)
-		ft_putendl("display_cursor");
 	char	*str;
 
 	if ((str = tgetstr("ve", NULL)) == NULL)
@@ -30,10 +38,8 @@ int				display_cursor(void)
 	return (0);
 }
 
-void			termcap_reset()
+void			termcap_reset(void)
 {
-	if (DEBUG == 1)
-		ft_putendl("termcap_reset");
 	clr_screen();
 	tputs(tgetstr("te", NULL), 1, ft_putchr);
 	display_cursor();

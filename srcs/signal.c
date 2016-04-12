@@ -1,15 +1,24 @@
-#include <term.h> //pour tgetent / tgetstr / tputs
-#include <termios.h> // pour tcgetattr / tcsetattr
-#include <stdlib.h> // pour getenv
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signal.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: avacher <avacher@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/04/12 18:37:29 by avacher           #+#    #+#             */
+/*   Updated: 2016/04/12 18:37:29 by avacher          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <term.h>
+#include <termios.h>
 #include <signal.h>
-#include <fcntl.h> // pour open
+#include <fcntl.h>
 #include "ft_select.h"
 #include "libft.h"
 
-void			sig_winsize(int sig)
+static void		sig_winsize(int sig)
 {
-	if (DEBUG == 1)
-		ft_putendl("sig_winsize");
 	t_cduo			*tmp;
 	int				i;
 
@@ -25,20 +34,17 @@ void			sig_winsize(int sig)
 		if (tmp->first_disp == TRUE)
 			tmp->first_disp = FALSE;
 		if (tmp->cursor == TRUE)
-			break ;
+			tmp->cursor = FALSE;
 		tmp = tmp->next;
 	}
-	tmp->cursor = FALSE;
 	tmp = get_stuff()->lst_param;
 	tmp->first_disp = TRUE;
 	tmp->cursor = TRUE;
 	manage_columns();
 }
 
-void			sig_interrupt(int sig)
+static void		sig_interrupt(int sig)
 {
-	if (DEBUG == 1)
-		ft_putendl("sig_interrupt");
 	char			cp[2];
 
 	(void)sig;
@@ -57,10 +63,8 @@ void			sig_interrupt(int sig)
 	ioctl(0, TIOCSTI, cp);
 }
 
-void			sig_continue(int sig)
+static void		sig_continue(int sig)
 {
-	if (DEBUG == 1)
-		ft_putendl("sig_continue");
 	(void)sig;
 	get_stuff()->fd = open(ttyname(0), O_WRONLY);
 	get_term()->c_lflag &= ~(ICANON | ECHO);
@@ -76,19 +80,15 @@ void			sig_continue(int sig)
 	signal(SIGTSTP, sig_interrupt);
 }
 
-void			sig_exit_pgm(int sig)
+static void		sig_exit_pgm(int sig)
 {
-	if (DEBUG == 1)
-		ft_putendl("sig_exit_pgm");
 	(void)sig;
 	termcap_reset();
 	exit(EXIT_FAILURE);
 }
 
-void			manage_signal()
+void			manage_signal(void)
 {
-	if (DEBUG == 1)
-		ft_putendl("manage_signal");
 	signal(SIGWINCH, sig_winsize);
 	signal(SIGTSTP, sig_interrupt);
 	signal(SIGCONT, sig_continue);

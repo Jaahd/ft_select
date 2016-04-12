@@ -1,14 +1,24 @@
-#include <term.h> //pour tgetent / tgetstr / tputs
-#include <termios.h> // pour tcgetattr / tcsetattr
-#include <stdlib.h> // pour getenv
-#include <fcntl.h> // pour open
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: avacher <avacher@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/04/12 18:37:29 by avacher           #+#    #+#             */
+/*   Updated: 2016/04/12 18:37:29 by avacher          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <term.h>
+#include <termios.h>
+#include <stdlib.h>
+#include <fcntl.h>
 #include "ft_select.h"
 #include "libft.h"
 
 int				enable_keyboard(void)
 {
-	if (DEBUG == 1)
-		ft_putendl("enable_keyboard");
 	char	*str;
 
 	if ((str = tgetstr("ke", NULL)) == NULL)
@@ -19,8 +29,6 @@ int				enable_keyboard(void)
 
 int				hide_cursor(void)
 {
-	if (DEBUG == 1)
-		ft_putendl("hide_cursor");
 	char	*str;
 
 	if ((str = tgetstr("vi", NULL)) == NULL)
@@ -29,10 +37,8 @@ int				hide_cursor(void)
 	return (0);
 }
 
-int				termcap_init()
+int				termcap_init(void)
 {
-	if (DEBUG == 1)
-		ft_putendl("termcap_init");
 	char				*name_term;
 
 	manage_signal();
@@ -44,7 +50,7 @@ int				termcap_init()
 		return (-1);
 	if (tcgetattr(get_stuff()->fd, get_term()) == -1)
 		return (-1);
-	get_term()->c_lflag &= ~(ICANON | ECHO); // mode canonique
+	get_term()->c_lflag &= ~(ICANON | ECHO);
 	get_term()->c_cc[VMIN] = 1;
 	get_term()->c_cc[VTIME] = 0;
 	if (tcsetattr(get_stuff()->fd, TCSADRAIN, get_term()) == -1)
