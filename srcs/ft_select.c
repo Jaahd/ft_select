@@ -10,14 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <term.h>
-#include <termios.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include "ft_select.h"
 #include "libft.h"
 
-#include <signal.h>
 
 int				manage_error(int i)
 {

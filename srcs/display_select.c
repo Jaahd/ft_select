@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <term.h>
-#include <termios.h>
 #include "ft_select.h"
 #include "libft.h"
 

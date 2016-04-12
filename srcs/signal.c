@@ -17,6 +17,8 @@
 #include "ft_select.h"
 #include "libft.h"
 
+void			sig_continue(int sig);
+
 static void		sig_winsize(int sig)
 {
 	t_cduo			*tmp;
@@ -63,7 +65,7 @@ static void		sig_interrupt(int sig)
 	ioctl(0, TIOCSTI, cp);
 }
 
-static void		sig_continue(int sig)
+void			sig_continue(int sig)
 {
 	(void)sig;
 	get_stuff()->fd = open(ttyname(0), O_WRONLY);
