@@ -74,6 +74,7 @@ void					termcap_reset();
 /*
 ** display.c
 */
+int						get_col_size();
 int						manage_columns();
 int						print_return(char **ret);
 

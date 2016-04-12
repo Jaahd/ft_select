@@ -1,4 +1,5 @@
 #include "ft_select.h"
+#include "libft.h"
 
 int				down_arrow(int i)
 {
@@ -16,16 +17,17 @@ int				down_arrow(int i)
 			pos = tmp->no_elt;
 		tmp = tmp->next;
 	}
-	if (i == 1) // if a verif
+	if (i == 1)
 		tmp->select = tmp->select == TRUE ? FALSE : TRUE;
 	tmp->cursor = FALSE;
 	tmp->next->cursor = TRUE;
 	result = fct_size()->ws_row * displayed_col;
-	if (tmp->next->no_elt == (result + pos) && tmp->next->first == FALSE)
+	if (tmp->next->no_elt >= (result + pos) && tmp->next->first == FALSE)
 	{
 		tmp = get_stuff()->lst_param;
 		while(tmp->first_disp != TRUE)
 			tmp = tmp->next;
+		pos = tmp->no_elt;
 		tmp->first_disp = FALSE;
 		while (tmp->no_elt < (pos + fct_size()->ws_row))
 			tmp = tmp->next;

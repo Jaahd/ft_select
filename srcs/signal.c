@@ -10,9 +10,24 @@ void			sig_winsize(int sig)
 {
 	if (DEBUG == 1)
 		ft_putendl("sig_winsize");
+	t_cduo			*tmp;
+
 	(void)sig;
 	get_s_win();
 	clr_screen();
+	get_col_size();
+	get_stuff()->nb_col = get_stuff()->nb_elt / fct_size()->ws_row;
+	tmp = get_stuff()->lst_param;
+	while (tmp->cursor == FALSE)
+	{
+		if (tmp->first_disp == TRUE)
+			tmp->first_disp = FALSE;
+		tmp = tmp->next;
+	}
+	tmp->cursor = FALSE;
+	tmp = get_stuff()->lst_param;
+	tmp->first_disp = TRUE;
+	tmp->cursor = TRUE;
 	manage_columns();
 }
 
@@ -21,7 +36,7 @@ void			sig_interrupt(int sig)
 	if (DEBUG == 1)
 		ft_putendl("sig_interrupt");
 	char			cp[2];
-	
+
 	(void)sig;
 	cp[0] = get_term()->c_cc[VSUSP];
 	cp[1] = 0;

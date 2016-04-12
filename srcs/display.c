@@ -3,15 +3,15 @@
 #include "ft_select.h"
 #include "libft.h"
 
-int		putchr_max_len_fd(char *str)
+int		putchr_max_len_fd(char *str, int col_size)
 {
-//	if (DEBUG == 1)
+	if (DEBUG == 1)
 		ft_putendl("putchr_max_len_fd");
 	int				i;
-	int				col_size;
 
 	i = 0;
-	col_size = get_stuff()->nb_elt > fct_size()->ws_row ? get_stuff()->col_size - 3 : fct_size()->ws_col - 3;
+	if (col_size == 0)
+		col_size = get_stuff()->nb_elt > fct_size()->ws_row ? get_stuff()->col_size - 4 : fct_size()->ws_col - 4;
 	while (i < (col_size))
 	{
 		ft_putchar_fd(str[i], get_stuff()->fd);
@@ -41,22 +41,25 @@ int				get_col_size()
 	return (0);
 }
 
-int				three_dots_up(int size)
+int				three_dots_up(int len, t_cduo *tmp)
 {
-	int				len;
+	int				i;
 
-	len = size > (get_stuff()->col_size - 8) ? (get_stuff()->col_size - 8) : size;
-	if (size >= (get_stuff()->col_size - 1))
+	i = len > (get_stuff()->col_size - 10) ? (get_stuff()->col_size - 10) : len;
+	if (len >= (get_stuff()->col_size - 1))
 	{
-		len = get_stuff()->col_size - 8;
-	tputs(tgoto(tgetstr("cm", NULL), len, 0), 1, ft_putchr);
-	tputs("...[...]", 1, ft_putchr);
+		i = get_stuff()->col_size - 10;
+		putchr_max_len_fd(tmp->name, i);
+//		tputs(tgoto(tgetstr("cm", NULL), len, 0), 1, ft_putchr);
 	}
 	else
-	{
-	tputs(tgoto(tgetstr("cm", NULL), len, 0), 1, ft_putchr);
+		putchr_max_len_fd(tmp->name, 0);
+	ft_putstr_fd("\033[0m", get_stuff()->fd);
 	tputs(" [...]", 1, ft_putchr);
-	}
+	if (tmp->select == TRUE)
+		ft_putstr_fd("\033[7m", get_stuff()->fd);
+	if (tmp->cursor == TRUE)
+		ft_putstr_fd("\033[31;1;4m", get_stuff()->fd);
 	return (0);
 }
 
@@ -83,15 +86,15 @@ int				manage_display(int j, int k, t_cduo *tmp)
 		if (tmp->cursor == TRUE)
 			ft_putstr_fd("\033[31;1;4m", get_stuff()->fd);
 		if ((get_stuff()->nb_elt <= fct_size()->ws_row && len > fct_size()->ws_col) || (len > get_stuff()->col_size && get_stuff()->nb_elt > fct_size()->ws_row))
-			putchr_max_len_fd(tmp->name);
+			putchr_max_len_fd(tmp->name, 0);
+		else if (tmp->first == FALSE && tmp->first_disp == TRUE)
+			three_dots_up(len, tmp);
 		else
 			tputs(tmp->name, 1, ft_putchr);
 		ft_putstr_fd("\033[0m", get_stuff()->fd);
 	}
 	else
 		three_dots_down();
-	if (tmp->first == FALSE && tmp->first_disp == TRUE)
-		three_dots_up(len);
 	return (0);
 }
 
@@ -102,8 +105,6 @@ int				manage_win_size()
 	int				nb_min_row;
 
 	nb_min_row = get_stuff()->nb_elt > 20 ? 20 : get_stuff()->nb_elt;
-	if (fct_size()->ws_col - get_stuff()->col_size < 0)
-		tputs("Window too small !", 1, ft_putchr);
 	if (fct_size()->ws_row < nb_min_row || fct_size()->ws_col < get_stuff()->col_size)
 	{
 		clr_screen();
@@ -123,6 +124,7 @@ int				manage_columns()
 	int				k;
 
 	get_col_size();
+	clr_screen();
 	i = 0;
 	k = 0;
 	tmp = get_stuff()->lst_param;
@@ -130,8 +132,6 @@ int				manage_columns()
 		tmp = tmp->next;
 	if (tmp->first == FALSE)
 		i++;
-//	if (tmp->first_disp == TRUE)
-//		printf("[[[[[%d]]]]]\n", tmp->no_elt);
 	while ((i += tmp->first) < 2)
 	{
 		tmp->col_nb = k;

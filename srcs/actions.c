@@ -52,22 +52,7 @@ char				**enter_key()
 	ret = enter_key_bis(ret);
 	return (ret);
 }
-/*
-int					space_key()
-{
-	if (DEBUG == 1)
-		ft_putendl("space_key");
-	t_cduo				*tmp;
 
-	tmp = get_stuff()->lst_param;
-	while (tmp->cursor == FALSE)
-		tmp = tmp->next;
-	tmp->select = tmp->select == TRUE ? FALSE : TRUE;
-	tmp->cursor = FALSE;
-	tmp->next->cursor = TRUE;
-	return (0);
-}
-*/
 int					esc_key()
 {
 	if (DEBUG == 1)
