@@ -70,7 +70,7 @@ int					esc_key(void)
 
 int					suppr_key(void)
 {
-	t_cdu				*tmp;
+	t_cduo				*tmp;
 
 	tmp = get_stuff()->lst_param;
 	while (tmp->cursor == FALSE)
