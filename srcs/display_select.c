@@ -44,7 +44,9 @@ static int		three_dots_up(int len, t_cduo *tmp)
 	else
 		tputs(tmp->name, 1, ft_putchr);
 	ft_putstr_fd("\033[0m", get_stuff()->fd);
-	tputs(" [...]", 1, ft_putchr);
+	tputs(tgoto(tgetstr("cm", NULL), get_stuff()->col_size - 6,
+		0), 1, ft_putchr);
+	tputs("[...]", 1, ft_putchr);
 	return (0);
 }
 
