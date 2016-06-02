@@ -39,7 +39,7 @@ int				manage_win_size(void)
 	int				win_min_widht;
 
 	nb_min_row = get_stuff()->nb_elt > 20 ? 20 : get_stuff()->nb_elt;
-	win_min_widht = get_stuff()->max_len * get_stuff()-> nb_col;
+	win_min_widht = get_stuff()->max_len * get_stuff()->nb_col;
 	nb_min_col = win_min_widht > 100 ? 100 : win_min_widht;
 	if (fct_size()->ws_row < nb_min_row && fct_size()->ws_col < nb_min_col)
 	{
