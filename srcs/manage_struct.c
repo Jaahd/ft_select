@@ -23,7 +23,15 @@ t_glst			*get_stuff(void)
 	static t_glst	*stuff = NULL;
 
 	if (stuff == NULL)
+	{
 		stuff = (t_glst *)malloc(sizeof(t_glst));
+		stuff->lst_param = NULL;
+		stuff->fd = -1;
+		stuff->max_len = 0;
+		stuff->nb_elt = 0;
+		stuff->nb_col = 0;
+		stuff->col_size = 0;
+	}
 	return (stuff);
 }
 

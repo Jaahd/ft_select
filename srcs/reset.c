@@ -40,6 +40,10 @@ int				display_cursor(void)
 
 void			termcap_reset(void)
 {
+	t_termios		*termios;
+	t_winsize		*win_size;
+	t_glst			*stuff;
+
 	clr_screen();
 	tputs(tgetstr("te", NULL), 1, ft_putchr);
 	display_cursor();
@@ -48,5 +52,11 @@ void			termcap_reset(void)
 	get_term()->c_lflag |= (ICANON | ECHO);
 	tcsetattr(get_stuff()->fd, 0, get_term());
 	free_lst_param();
+	termios = get_term();
+	free(termios);
+	win_size = fct_size();
+	free(win_size);
 	close(get_stuff()->fd);
+	stuff = get_stuff();
+	free(stuff);
 }

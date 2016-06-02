@@ -13,7 +13,7 @@
 #include "libft.h"
 #include "ft_select.h"
 
-static char			**enter_key_bis(char **ret)
+static void			enter_key_bis(char ***ret)
 {
 	int					j;
 	t_cduo				*tmp;
@@ -22,22 +22,21 @@ static char			**enter_key_bis(char **ret)
 	tmp = get_stuff()->lst_param;
 	if (tmp->select == TRUE)
 	{
-		if ((ret[j] = ft_strdup(tmp->name)) == NULL)
-			return (NULL);
+		if (((*ret)[j] = ft_strdup(tmp->name)) == NULL)
+			return ;
 		j++;
 	}
 	while (tmp->next->first != TRUE)
 	{
 		if (tmp->next->select == TRUE)
 		{
-			if ((ret[j] = ft_strdup(tmp->next->name)) == NULL)
-				return (NULL);
+			if (((*ret)[j] = ft_strdup(tmp->next->name)) == NULL)
+				return ;
 			j++;
 		}
 		tmp = tmp->next;
 	}
-	ret[j] = NULL;
-	return (ret);
+	(*ret)[j] = NULL;
 }
 
 char				**enter_key(void)
@@ -57,7 +56,7 @@ char				**enter_key(void)
 	}
 	if ((ret = (char **)malloc(sizeof(char*) * (i + 1))) == NULL)
 		return (NULL);
-	ret = enter_key_bis(ret);
+	enter_key_bis(&ret);
 	return (ret);
 }
 

@@ -17,10 +17,12 @@
 int				manage_error(int i)
 {
 	if (i == 1)
+	{
 		ft_putendl("ft_select: can't initialize termcap");
+		termcap_reset();
+	}
 	if (i == 2)
 		ft_putendl("ft_select: usage: ./ft_select arg_1 [arg_2] [...] [arg_n]");
-	termcap_reset();
 	exit(EXIT_FAILURE);
 	return (-1);
 }
@@ -49,10 +51,10 @@ int				main(int ac, char **av)
 	t_cduo				*lst_param;
 	char				**ret;
 
-	if (ac == 1)
-		manage_error(2);
 	lst_param = NULL;
 	ret = NULL;
+	if (ac == 1)
+		manage_error(2);
 	if (termcap_init() == -1)
 		manage_error(1);
 	get_stuff()->max_len = fill_list(&lst_param, ac, av);
