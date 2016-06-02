@@ -51,17 +51,17 @@ int				manage_win_size(void)
 	return (0);
 }
 
-int				print_return(char **ret)
+int				print_return(char ***ret)
 {
 	int					i;
 
 	i = 0;
-	while (ret[i] != NULL)
+	while ((*ret)[i] != NULL)
 	{
-		ft_putstr_fd(ret[i], 1);
+		ft_putstr_fd((*ret)[i], 1);
 		ft_putchar_fd(' ', 1);
 		i++;
 	}
-	free_tab(&ret);
+	free_tab(ret);
 	return (0);
 }

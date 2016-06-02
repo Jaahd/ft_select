@@ -31,8 +31,8 @@ void			free_lst_param(void)
 {
 	t_cduo				*tmp;
 
-	if (get_stuff()->lst_param == NULL)
-		return ;
+//	if (get_stuff()->nb_elt == 0)
+//		return ;
 	tmp = get_stuff()->lst_param;
 	while (tmp != NULL && get_stuff()->nb_elt > 0)
 	{
@@ -67,6 +67,6 @@ int				main(int ac, char **av)
 	}
 	termcap_reset();
 	if (ret != NULL)
-		print_return(ret);
+		print_return(&ret);
 	return (0);
 }

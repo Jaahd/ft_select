@@ -71,6 +71,7 @@ int					suppr_key(void)
 {
 	t_cduo				*tmp;
 
+	tmp = NULL;
 	tmp = get_stuff()->lst_param;
 	while (tmp->cursor == FALSE)
 		tmp = tmp->next;

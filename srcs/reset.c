@@ -51,12 +51,12 @@ void			termcap_reset(void)
 	tcgetattr(get_stuff()->fd, get_term());
 	get_term()->c_lflag |= (ICANON | ECHO);
 	tcsetattr(get_stuff()->fd, 0, get_term());
-	free_lst_param();
+	close(get_stuff()->fd);
 	termios = get_term();
 	free(termios);
 	win_size = fct_size();
 	free(win_size);
-	close(get_stuff()->fd);
+	free_lst_param();
 	stuff = get_stuff();
 	free(stuff);
 }

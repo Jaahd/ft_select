@@ -52,7 +52,6 @@ int				fill_list(t_cduo **lst_param, int ac, char **av)
 		i++;
 	}
 	get_stuff()->nb_elt = i - 1;
-	free_lst_param();
 	get_stuff()->lst_param = *lst_param;
 	return (max_len);
 }

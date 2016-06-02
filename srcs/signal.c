@@ -95,5 +95,5 @@ void			manage_signal(void)
 	signal(SIGINT, sig_exit_pgm);
 	signal(SIGQUIT, sig_exit_pgm);
 	signal(SIGTERM, sig_exit_pgm);
-	signal(SIGKILL, sig_exit_pgm);
+//	signal(SIGKILL, sig_exit_pgm);
 }

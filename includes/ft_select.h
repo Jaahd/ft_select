@@ -57,7 +57,7 @@ typedef struct			s_glst
 }						t_glst;
 
 int						cduo_pushback(t_cduo **lst_param, char *name, int no);
-void					free_lst_param(void);
+void					free_lst_param();
 
 /*
 ** first_steps.c
@@ -86,7 +86,7 @@ void					termcap_reset(void);
 */
 int						get_col_size(void);
 int						manage_win_size(void);
-int						print_return(char **ret);
+int						print_return(char ***ret);
 
 /*
 ** display_select.c
