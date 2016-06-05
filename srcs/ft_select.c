@@ -32,8 +32,9 @@ void			free_lst_param(void)
 	t_cduo				*tmp;
 
 	tmp = NULL;
-	get_stuff()->lst_param->prev->next = NULL;
-	while (get_stuff()->lst_param)
+	if (get_stuff()->nb_elt && get_stuff()->lst_param)
+		get_stuff()->lst_param->prev->next = NULL;
+	while (get_stuff()->nb_elt && get_stuff()->lst_param)
 	{
 		tmp = get_stuff()->lst_param;
 		get_stuff()->lst_param = get_stuff()->lst_param->next;
