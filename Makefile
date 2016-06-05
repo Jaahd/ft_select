@@ -1,4 +1,6 @@
-CC =	/usr/bin/clang
+ifeq ($(CC),cc)
+	CC := clang
+endif
 RM =	/bin/rm
 MAKE =	/usr/bin/make
 MKDIR =	/bin/mkdir
