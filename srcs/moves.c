@@ -43,9 +43,7 @@ int				down_arrow(int space)
 	t_cduo				*tmp;
 	int					pos;
 	int					displayed_col;
-	int					i;
 
-	i = 0;
 	pos = 0;
 	displayed_col = fct_size()->ws_col / get_stuff()->col_size;
 	tmp = get_stuff()->lst_param;
